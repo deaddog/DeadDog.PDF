@@ -1,0 +1,91 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Project ToolsVersion="4.0" DefaultTargets="Build" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+  <PropertyGroup>
+    <Configuration Condition=" '$(Configuration)' == '' ">Debug</Configuration>
+    <Platform Condition=" '$(Platform)' == '' ">AnyCPU</Platform>
+    <ProductVersion>8.0.30703</ProductVersion>
+    <SchemaVersion>2.0</SchemaVersion>
+    <ProjectGuid>{76553FC2-D98D-4CB4-A0C6-AB5B8FCF8C0A}</ProjectGuid>
+    <OutputType>Library</OutputType>
+    <AppDesignerFolder>Properties</AppDesignerFolder>
+    <RootNamespace>DeadDog.PDF</RootNamespace>
+    <AssemblyName>DeadDog.PDF</AssemblyName>
+    <TargetFrameworkVersion>v4.0</TargetFrameworkVersion>
+    <FileAlignment>512</FileAlignment>
+  </PropertyGroup>
+  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Debug|AnyCPU' ">
+    <DebugSymbols>true</DebugSymbols>
+    <DebugType>full</DebugType>
+    <Optimize>false</Optimize>
+    <OutputPath>bin\Debug\</OutputPath>
+    <DefineConstants>DEBUG;TRACE</DefineConstants>
+    <ErrorReport>prompt</ErrorReport>
+    <WarningLevel>4</WarningLevel>
+  </PropertyGroup>
+  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Release|AnyCPU' ">
+    <DebugType>pdbonly</DebugType>
+    <Optimize>true</Optimize>
+    <OutputPath>bin\Release\</OutputPath>
+    <DefineConstants>TRACE</DefineConstants>
+    <ErrorReport>prompt</ErrorReport>
+    <WarningLevel>4</WarningLevel>
+    <DocumentationFile>bin\Release\DeadDog.PDF.XML</DocumentationFile>
+  </PropertyGroup>
+  <ItemGroup>
+    <Reference Include="itextsharp">
+      <HintPath>.\itextsharp.dll</HintPath>
+    </Reference>
+    <Reference Include="System" />
+    <Reference Include="System.Core" />
+    <Reference Include="System.Drawing" />
+    <Reference Include="System.Xml.Linq" />
+    <Reference Include="System.Data.DataSetExtensions" />
+    <Reference Include="Microsoft.CSharp" />
+    <Reference Include="System.Data" />
+    <Reference Include="System.Xml" />
+  </ItemGroup>
+  <ItemGroup>
+    <Compile Include="FontInfo.cs" />
+    <Compile Include="Objects\Interfaces\ICollectable.cs" />
+    <Compile Include="Objects\Interfaces\IOffsetPosition.cs" />
+    <Compile Include="Objects\Interfaces\IPDFGroup.cs" />
+    <Compile Include="Objects\Interfaces\IPDFObject.cs" />
+    <Compile Include="Objects\Leafs\Box.cs" />
+    <Compile Include="Objects\Leafs\Elipse.cs" />
+    <Compile Include="Objects\Leafs\EmptyBox.cs" />
+    <Compile Include="Objects\Leafs\ImageObject.cs" />
+    <Compile Include="Objects\Leafs\LeafObject.cs" />
+    <Compile Include="Objects\Leafs\LeafObjectSizeable.cs" />
+    <Compile Include="Objects\Leafs\Line.cs" />
+    <Compile Include="Objects\Leafs\TextAlignment.cs" />
+    <Compile Include="Objects\Leafs\TextLine.cs" />
+    <Compile Include="Objects\LocationHandler.cs" />
+    <Compile Include="Objects\Nodes\HorizontalAlignment.cs" />
+    <Compile Include="Objects\Nodes\HorizontalGroup.cs" />
+    <Compile Include="Objects\Nodes\TextBox.cs" />
+    <Compile Include="Objects\Nodes\VerticalAlignment.cs" />
+    <Compile Include="Objects\Nodes\VerticalGroup.cs" />
+    <Compile Include="Objects\ObjectCollector.cs" />
+    <Compile Include="Objects\PDFGroup.cs" />
+    <Compile Include="Objects\PDFGroupSizeable.cs" />
+    <Compile Include="Objects\PDFList.cs" />
+    <Compile Include="Objects\PDFObject.cs" />
+    <Compile Include="Objects\PDFObjectSizeable.cs" />
+    <Compile Include="Pages\Interfaces\IPDFPage.cs" />
+    <Compile Include="Pages\Page.cs" />
+    <Compile Include="Pages\PageSize.cs" />
+    <Compile Include="PDF.cs" />
+    <Compile Include="PDF.standards.cs" />
+    <Compile Include="PDF.writer.cs" />
+    <Compile Include="Program.cs" />
+    <Compile Include="Properties\AssemblyInfo.cs" />
+  </ItemGroup>
+  <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
+  <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 
+       Other similar extension points exist, see Microsoft.Common.targets.
+  <Target Name="BeforeBuild">
+  </Target>
+  <Target Name="AfterBuild">
+  </Target>
+  -->
+</Project>
