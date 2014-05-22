@@ -114,6 +114,34 @@ namespace DeadDog.PDF
         }
 
         /// <summary>
+        /// Initializes a new <see cref="FontInfo"/> using a specified size.
+        /// </summary>
+        /// <param name="familyName">A string representation of the <see cref="System.Drawing.FontFamily"/> for the new <see cref="FontInfo"/></param>
+        /// <param name="emSize">The em-size, in points, of the new font.</param>
+        public FontInfo(string familyName, float emSize)
+            :this(familyName, emSize, FontStyle.Regular)
+        {
+        }
+        /// <summary>
+        /// Initializes a new <see cref="FontInfo"/> using a specified size and style.
+        /// </summary>
+        /// <param name="familyName">A string representation of the <see cref="System.Drawing.FontFamily"/> for the new <see cref="FontInfo"/></param>
+        /// <param name="emSize">The em-size, in points, of the new font.</param>
+        /// <param name="style">The System.Drawing.FontStyle of the new font.</param>
+        public FontInfo(string familyName, float emSize, FontStyle style)
+        {
+            this.name = familyName;
+            this.style = style;
+            this.size = emSize;
+            this.iFont = iTextSharp.text.FontFactory.GetFont(name, size, getStyle(style));
+
+            this.ascenderHeight = GetAscenderHeight(iFont);
+            this.descenderHeight = GetDescenderHeight(iFont);
+            this.baseHeight = GetBaseHeight(iFont);
+            this.height = GetLineHeight(iFont);
+        }
+
+        /// <summary>
         /// Gets the full height of this font.
         /// </summary>
         public float Height
