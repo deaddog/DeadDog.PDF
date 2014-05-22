@@ -463,7 +463,11 @@ namespace DeadDog.PDF
             //Set a correct amount of elements 
             if (ss.Length > textGroup.Objects.Count)
                 for (int i = textGroup.Objects.Count; i < ss.Length; i++)
-                    textGroup.Objects.Add(new TextLine("", font, new PointF(0, 0), align, color));
+                    textGroup.Objects.Add(new TextLine(font)
+                    {
+                        Alignment = align,
+                        Color = color
+                    });
             else if (ss.Length < textGroup.Objects.Count)
                 textGroup.Objects.RemoveRange(0, textGroup.Objects.Count - ss.Length);
 

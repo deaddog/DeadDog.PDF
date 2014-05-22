@@ -16,51 +16,17 @@ namespace DeadDog.PDF
         private TextAlignment alignment;
 
         /// <summary>
-        /// Initializes a new instance of the <see cref="TextLine"/> class with the selected properties.
+        /// Initializes a new instance of the <see cref="TextLine"/> class.
         /// </summary>
-        /// <param name="text">The text displayed in this textline.</param>
         /// <param name="font">The font used to display text in this textline.</param>
-        public TextLine(string text, FontInfo font)
-            : this(text, font, new PointF(0, 0), TextAlignment.Left, Color.Black)
-        {
-        }
-        /// <summary>
-        /// Initializes a new instance of the <see cref="TextLine"/> class with the selected properties.
-        /// </summary>
-        /// <param name="text">The text displayed in this textline.</param>
-        /// <param name="font">The font used to display text in this textline.</param>
-        /// <param name="p">The location of this textline.</param>
-        public TextLine(string text, FontInfo font, PointF p)
-            : this(text, font, p, TextAlignment.Left, Color.Black)
-        {
-        }
-        /// <summary>
-        /// Initializes a new instance of the <see cref="TextLine"/> class with the selected properties.
-        /// </summary>
-        /// <param name="text">The text displayed in this textline.</param>
-        /// <param name="font">The font used to display text in this textline.</param>
-        /// <param name="p">The location of this textline.</param>
-        /// <param name="alignment">The horizontal alignment of text in this textline.</param>
-        public TextLine(string text, FontInfo font, PointF p, TextAlignment alignment)
-            : this(text, font, p, alignment, Color.Black)
-        {
-        }
-        /// <summary>
-        /// Initializes a new instance of the <see cref="TextLine"/> class with the selected properties.
-        /// </summary>
-        /// <param name="text">The text displayed in this textline.</param>
-        /// <param name="font">The font used to display text in this textline.</param>
-        /// <param name="p">The location of this textline.</param>
-        /// <param name="alignment">The horizontal alignment of text in this textline.</param>
-        /// <param name="color">The color of the text.</param>
-        public TextLine(string text, FontInfo font, PointF p, TextAlignment alignment, Color color)
+        public TextLine(FontInfo font)
             : base()
         {
-            this.Location = p;
-            this.text = text;
+            this.Location = new PointF(0, 0);
+            this.text = string.Empty;
             this.font = font;
-            this.color = color;
-            this.alignment = alignment;
+            this.color = Color.Black;
+            this.alignment = TextAlignment.Left;
         }
 
         /// <summary>
@@ -85,7 +51,7 @@ namespace DeadDog.PDF
         public FontInfo Font
         {
             get { return font; }
-            set { font = value;}
+            set { font = value; }
         }
         /// <summary>
         /// Gets or sets the horizontal alignment of text in this <see cref="TextLine"/>.
