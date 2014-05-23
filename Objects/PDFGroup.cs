@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Drawing;
 using System.Text;
 
 namespace DeadDog.PDF
@@ -11,7 +12,7 @@ namespace DeadDog.PDF
     /// </summary>
     public abstract class PDFGroup : IPDFGroup
     {
-        private LocationHandler handler;
+        private PointF offset;
         private PDFList<IPDFObject> privatelist;
         /// <summary>
         /// The <see cref="PDFList{IPDFObject}"/> to which all objects in this group should be added.
@@ -24,9 +25,19 @@ namespace DeadDog.PDF
         /// <summary>
         /// Initializes a new instance of the <see cref="PDFGroup"/> class.
         /// </summary>
-        public PDFGroup()
+        /// <param name="offsetX">The x offset for this object.</param>
+        /// <param name="offsetY">The y offset for this object.</param>
+        public PDFGroup(float offsetX, float offsetY)
+            : this(new PointF(offsetX, offsetY))
         {
-            this.handler = new LocationHandler(this);
+        }
+        /// <summary>
+        /// Initializes a new instance of the <see cref="PDFGroup"/> class.
+        /// </summary>
+        /// <param name="offset">The offset for this object.</param>
+        public PDFGroup(PointF offset)
+        {
+            this.offset = offset;
             this.privatelist = new PDFList<IPDFObject>(this);
         }
 
@@ -44,36 +55,28 @@ namespace DeadDog.PDF
         #region IPDFObject Members
 
         /// <summary>
-        /// Gets a <see cref="LocationHandler"/> for this group.
+        /// Gets or sets the offset for this <see cref="PDFGroup"/>.
         /// </summary>
-        public LocationHandler Handler
+        public PointF Offset
         {
-            get { return handler; }
-        }
-
-        /// <summary>
-        /// Gets or sets the coordinates of this <see cref="PDFGroup" />.
-        /// </summary>
-        public System.Drawing.PointF Location
-        {
-            get { return handler.Location; }
-            set { handler.Location = value; }
+            get { return offset; }
+            set { offset = value; }
         }
         /// <summary>
-        /// Gets or sets the x-coordinate of this <see cref="PDFGroup" />.
+        /// Gets or sets the x offset for this <see cref="PDFGroup"/>.
         /// </summary>
-        public float X
+        public float OffsetX
         {
-            get { return handler.X; }
-            set { handler.X = value; }
+            get { return offset.X; }
+            set { offset.X = value; }
         }
         /// <summary>
-        /// Gets or sets the y-coordinate of this <see cref="PDFGroup" />.
+        /// Gets or sets the y offset for this <see cref="PDFGroup"/>.
         /// </summary>
-        public float Y
+        public float OffsetY
         {
-            get { return handler.Y; }
-            set { handler.Y = value; }
+            get { return offset.Y; }
+            set { offset.Y = value; }
         }
 
         /// <summary>
@@ -111,7 +114,7 @@ namespace DeadDog.PDF
     /// <typeparam name="T">The type of elements in the pdf group</typeparam>
     public abstract class PDFGroup<T> : IPDFGroup<T> where T : IPDFObject
     {
-        private LocationHandler handler;
+        private PointF offset;
         private PDFList<T> privatelist;
         /// <summary>
         /// The <see cref="PDFList{T}"/> to which all objects in this group should be added.
@@ -124,9 +127,19 @@ namespace DeadDog.PDF
         /// <summary>
         /// Initializes a new instance of the <see cref="PDFGroup{T}"/> class.
         /// </summary>
-        public PDFGroup()
+        /// <param name="offsetX">The x offset for this object.</param>
+        /// <param name="offsetY">The y offset for this object.</param>
+        public PDFGroup(float offsetX, float offsetY)
+            : this(new PointF(offsetX, offsetY))
         {
-            this.handler = new LocationHandler(this);
+        }
+        /// <summary>
+        /// Initializes a new instance of the <see cref="PDFGroup{T}"/> class.
+        /// </summary>
+        /// <param name="offset">The offset for this object.</param>
+        public PDFGroup(PointF offset)
+        {
+            this.offset = offset;
             this.privatelist = new PDFList<T>(this);
         }
 
@@ -150,36 +163,28 @@ namespace DeadDog.PDF
         #region IPDFObject Members
 
         /// <summary>
-        /// Gets a <see cref="LocationHandler"/> for this group.
+        /// Gets or sets the offset for this <see cref="PDFGroup{T}"/>.
         /// </summary>
-        public LocationHandler Handler
+        public PointF Offset
         {
-            get { return handler; }
-        }
-
-        /// <summary>
-        /// Gets or sets the coordinates of this <see cref="PDFGroup{T}" />.
-        /// </summary>
-        public System.Drawing.PointF Location
-        {
-            get { return handler.Location; }
-            set { handler.Location = value; }
+            get { return offset; }
+            set { offset = value; }
         }
         /// <summary>
-        /// Gets or sets the x-coordinate of this <see cref="PDFGroup{T}" />.
+        /// Gets or sets the x offset for this <see cref="PDFGroup{T}"/>.
         /// </summary>
-        public float X
+        public float OffsetX
         {
-            get { return handler.X; }
-            set { handler.X = value; }
+            get { return offset.X; }
+            set { offset.X = value; }
         }
         /// <summary>
-        /// Gets or sets the y-coordinate of this <see cref="PDFGroup{T}" />.
+        /// Gets or sets the y offset for this <see cref="PDFGroup{T}"/>.
         /// </summary>
-        public float Y
+        public float OffsetY
         {
-            get { return handler.Y; }
-            set { handler.Y = value; }
+            get { return offset.Y; }
+            set { offset.Y = value; }
         }
 
         /// <summary>
