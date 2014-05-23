@@ -48,7 +48,6 @@
     <Compile Include="Conversion.cs" />
     <Compile Include="FontInfo.cs" />
     <Compile Include="Objects\Interfaces\ICollectable.cs" />
-    <Compile Include="Objects\Interfaces\IOffsetPosition.cs" />
     <Compile Include="Objects\Interfaces\IPDFGroup.cs" />
     <Compile Include="Objects\Interfaces\IPDFObject.cs" />
     <Compile Include="Objects\Leafs\Box.cs" />
@@ -58,7 +57,6 @@
     <Compile Include="Objects\Leafs\Line.cs" />
     <Compile Include="Objects\Leafs\TextAlignment.cs" />
     <Compile Include="Objects\Leafs\TextLine.cs" />
-    <Compile Include="Objects\LocationHandler.cs" />
     <Compile Include="Objects\Nodes\HorizontalAlignment.cs" />
     <Compile Include="Objects\Nodes\HorizontalGroup.cs" />
     <Compile Include="Objects\Nodes\TextBox.cs" />
