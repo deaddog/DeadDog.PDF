@@ -55,8 +55,6 @@
     <Compile Include="Objects\Leafs\Elipse.cs" />
     <Compile Include="Objects\Leafs\EmptyBox.cs" />
     <Compile Include="Objects\Leafs\ImageObject.cs" />
-    <Compile Include="Objects\Leafs\LeafObject.cs" />
-    <Compile Include="Objects\Leafs\LeafObjectSizeable.cs" />
     <Compile Include="Objects\Leafs\Line.cs" />
     <Compile Include="Objects\Leafs\TextAlignment.cs" />
     <Compile Include="Objects\Leafs\TextLine.cs" />

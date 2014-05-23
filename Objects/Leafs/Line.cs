@@ -8,7 +8,7 @@ namespace DeadDog.PDF
     /// <summary>
     /// Holds information required to draw a line in a pdf document.
     /// </summary>
-    public class Line : LeafObjectSizeable, IPDFObject
+    public class Line : PDFObjectSizeable, IPDFObject
     {
         private Color color;
         private SizeF size;

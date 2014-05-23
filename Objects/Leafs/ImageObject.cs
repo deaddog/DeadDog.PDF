@@ -8,7 +8,7 @@ namespace DeadDog.PDF
     /// <summary>
     /// Holds information required to draw an image in a pdf document.
     /// </summary>
-    public class ImageObject : LeafObjectSizeable, IPDFObject
+    public class ImageObject : PDFObjectSizeable, IPDFObject
     {
         private string filepath;
         private SizeF size;

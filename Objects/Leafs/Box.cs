@@ -8,7 +8,7 @@ namespace DeadDog.PDF
     /// <summary>
     /// Holds information required to draw a box in a pdf document.
     /// </summary>
-    public class Box : LeafObjectSizeable, IPDFObject
+    public class Box : PDFObjectSizeable, IPDFObject
     {
         private Color fill;
         private Color border;
