@@ -10,11 +10,20 @@ namespace DeadDog.PDF
     public interface IPDFObject
     {
         /// <summary>
-        /// Gets a <see cref="LocationHandler"/> for this object.
+        /// Gets or sets the x offset for this object.
         /// </summary>
-        LocationHandler Handler
+        float OffsetX
         {
             get;
+            set;
+        }
+        /// <summary>
+        /// Gets or sets the y offset for this object.
+        /// </summary>
+        float OffsetY
+        {
+            get;
+            set;
         }
 
         /// <summary>
