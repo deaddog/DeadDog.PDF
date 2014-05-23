@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Drawing;
 using System.Text;
 
 namespace DeadDog.PDF
@@ -9,49 +10,50 @@ namespace DeadDog.PDF
     /// </summary>
     public abstract class PDFObjectSizeable : IPDFObject
     {
-        private LocationHandler handler;
+        private PointF offset;
 
         /// <summary>
-        /// Initializes a new instance of the <see cref="PDFObjectSizeable"/> class.
+        /// Initializes a new instance of the <see cref="PDFObjectSizeable" /> class.
         /// </summary>
-        public PDFObjectSizeable()
+        /// <param name="offsetX">The x offset for this object.</param>
+        /// <param name="offsetY">The y offset for this object.</param>
+        public PDFObjectSizeable(float offsetX, float offsetY)
+            : this(new PointF(offsetX, offsetY))
         {
-            this.handler = new LocationHandler(this);
-        }
-
-        #region IPDFObject Members
-
-        /// <summary>
-        /// Gets a <see cref="LocationHandler"/> for this object.
-        /// </summary>
-        public LocationHandler Handler
-        {
-            get { return handler; }
         }
 
         /// <summary>
-        /// Gets or sets the coordinates of this <see cref="PDFObjectSizeable" />.
+        /// Initializes a new instance of the <see cref="PDFObject"/> class.
         /// </summary>
-        public System.Drawing.PointF Location
+        /// <param name="offset">The offset for this object.</param>
+        public PDFObjectSizeable(PointF offset)
         {
-            get { return handler.Location; }
-            set { handler.Location = value; }
+            this.offset = offset;
+        }
+
+        /// <summary>
+        /// Gets or sets the offset for this <see cref="PDFObjectSizeable"/>.
+        /// </summary>
+        public PointF Offset
+        {
+            get { return offset; }
+            set { offset = value; }
         }
         /// <summary>
-        /// Gets or sets the x-coordinate of this <see cref="PDFObjectSizeable" />.
+        /// Gets or sets the x offset for this <see cref="PDFObjectSizeable"/>.
         /// </summary>
-        public float X
+        public float OffsetX
         {
-            get { return handler.X; }
-            set { handler.X = value; }
+            get { return offset.X; }
+            set { offset.X = value; }
         }
         /// <summary>
-        /// Gets or sets the y-coordinate of this <see cref="PDFObjectSizeable" />.
+        /// Gets or sets the y offset for this <see cref="PDFObjectSizeable"/>.
         /// </summary>
-        public float Y
+        public float OffsetY
         {
-            get { return handler.Y; }
-            set { handler.Y = value; }
+            get { return offset.Y; }
+            set { offset.Y = value; }
         }
 
         /// <summary>
@@ -84,7 +86,5 @@ namespace DeadDog.PDF
         /// </summary>
         /// <param name="collector">An <see cref="ObjectCollector"/> to which all pdf objects are added.</param>
         public abstract void Collect(ObjectCollector collector);
-
-        #endregion
     }
 }
