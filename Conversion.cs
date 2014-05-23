@@ -16,7 +16,7 @@ namespace DeadDog.PDF
         /// </summary>
         /// <param name="cm">The value to convert.</param>
         /// <returns>The value converted to points.</returns>
-        public static float getP(this float cm)
+        public static float ToPoints(this float cm)
         {
             //float a = (cm * 72f) / 2.54f;
             return (cm * 72f) / 2.54f;
@@ -26,7 +26,7 @@ namespace DeadDog.PDF
         /// </summary>
         /// <param name="p">The value to convert.</param>
         /// <returns>The value converted to centimeters.</returns>
-        public static float getC(this float p)
+        public static float ToCentimeters(this float p)
         {
             return (p * 2.54f) / 72f;
         }
@@ -36,18 +36,18 @@ namespace DeadDog.PDF
         /// </summary>
         /// <param name="cm">The <see cref="PointF"/> to convert.</param>
         /// <returns>The <see cref="PointF"/> converted to points.</returns>
-        public static PointF getP(this PointF cm)
+        public static PointF ToPoints(this PointF cm)
         {
-            return new PointF(getP(cm.X), getP(cm.Y));
+            return new PointF(ToPoints(cm.X), ToPoints(cm.Y));
         }
         /// <summary>
         /// Converts a <see cref="PointF"/> from points to centimeters.
         /// </summary>
         /// <param name="p">The <see cref="PointF"/> to convert.</param>
         /// <returns>The <see cref="PointF"/> converted to centimeters.</returns>
-        public static PointF getC(this PointF p)
+        public static PointF ToCentimeters(this PointF p)
         {
-            return new PointF(getC(p.X), getC(p.Y));
+            return new PointF(ToCentimeters(p.X), ToCentimeters(p.Y));
         }
 
         /// <summary>
@@ -55,18 +55,18 @@ namespace DeadDog.PDF
         /// </summary>
         /// <param name="cm">The <see cref="SizeF"/> to convert.</param>
         /// <returns>The <see cref="SizeF"/> converted to points.</returns>
-        public static SizeF getP(this SizeF cm)
+        public static SizeF ToPoints(this SizeF cm)
         {
-            return new SizeF(getP(cm.Width), getP(cm.Height));
+            return new SizeF(ToPoints(cm.Width), ToPoints(cm.Height));
         }
         /// <summary>
         /// Converts a <see cref="SizeF"/> from points to centimeters.
         /// </summary>
         /// <param name="p">The <see cref="SizeF"/> to convert.</param>
         /// <returns>The <see cref="SizeF"/> converted to centimeters.</returns>
-        public static SizeF getC(this SizeF p)
+        public static SizeF ToCentimeters(this SizeF p)
         {
-            return new SizeF(getC(p.Width), getC(p.Height));
+            return new SizeF(ToCentimeters(p.Width), ToCentimeters(p.Height));
         }
 
         /// <summary>
@@ -74,18 +74,18 @@ namespace DeadDog.PDF
         /// </summary>
         /// <param name="cm">The <see cref="RectangleF"/> to convert.</param>
         /// <returns>The <see cref="RectangleF"/> converted to points.</returns>
-        public static RectangleF getP(this RectangleF cm)
+        public static RectangleF ToPoints(this RectangleF cm)
         {
-            return new RectangleF(getP(cm.Location), getP(cm.Size));
+            return new RectangleF(ToPoints(cm.Location), ToPoints(cm.Size));
         }
         /// <summary>
         /// Converts a <see cref="RectangleF"/> from points to centimeters.
         /// </summary>
         /// <param name="p">The <see cref="RectangleF"/> to convert.</param>
         /// <returns>The <see cref="RectangleF"/> converted to centimeters.</returns>
-        public static RectangleF getC(this RectangleF p)
+        public static RectangleF ToCentimeters(this RectangleF p)
         {
-            return new RectangleF(getC(p.Location), getC(p.Size));
+            return new RectangleF(ToCentimeters(p.Location), ToCentimeters(p.Size));
         }
     }
 }
