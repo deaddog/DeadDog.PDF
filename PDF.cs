@@ -10,20 +10,17 @@ namespace DeadDog.PDF
         {
             private List<IPDFPage> objects = new List<IPDFPage>();
 
-            public void Add(IPDFPage value)
+            public T Add<T>(T value) where T : IPDFPage
             {
                 objects.Add(value);
+                return value;
             }
             public void Add(params IPDFPage[] values)
             {
                 foreach (IPDFPage value in values)
                     Add(value);
             }
-            /*public void Add(IPDFpages value)
-            {
-                foreach (IPDFpage page in value.GetPages())
-                    Add(page);
-            }*/
+
             public bool Remove(IPDFPage value)
             {
                 return objects.Remove(value);
