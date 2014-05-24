@@ -58,10 +58,16 @@ namespace DeadDog.PDF
             }
         }
 
-        public PageCollection Pages = new PageCollection();
+        private PageCollection pages;
+        public PageCollection Pages
+        {
+            get { return pages; }
+        }
 	
         public PDFDocument()
-        { }
+        {
+            this.pages = new PageCollection();
+        }
 
         public void Create(string filename)
         {
