@@ -67,40 +67,19 @@ namespace DeadDog.PDF
                     draw(obj);
             }
 
-            private void draw(IPDFObject obj)
+            private void draw<T>(PointF offset, PDFGroup<T> group) where T : PDFObject
             {
-                System.Drawing.PointF point = obj.Handler.Location;
-                IPDFGroup par = obj.Handler.parent;
-                obj.Handler.parent = null;
-                System.Drawing.PointF point2 = obj.Handler.Location;
-                obj.Handler.Location = point;
-
-                ObjectCollector collector = new ObjectCollector();
-                obj.Collect(collector);
-
-                foreach (IPDFObject p in collector.GetObjects)
+                foreach (var obj in group.Objects)
                 {
-                    if (p is DeadDog.PDF.TextLine)
-                        drawText(p as DeadDog.PDF.TextLine);
-                    else if (p is DeadDog.PDF.Box)
-                        drawBox(p as DeadDog.PDF.Box);
-                    else if (p is DeadDog.PDF.Elipse)
-                        drawElipse(p as DeadDog.PDF.Elipse);
-                    else if (p is DeadDog.PDF.Line)
-                        drawLine(p as DeadDog.PDF.Line);
-                    else if (p is DeadDog.PDF.ImageObject)
-                        drawImage(p as DeadDog.PDF.ImageObject);
-                    else
-                        draw(p);
+                    var gOff = group.GetGroupingOffset(obj);
+                    draw(new PointF(
+                        offset.X + group.OffsetX + gOff.X,
+                        offset.Y + group.OffsetY + gOff.Y),
+                        ((dynamic)obj));
                 }
-
-                obj.Handler.Location = point2;
-                obj.Handler.parent = par;
-
-                return;
             }
 
-            private void drawText(PointF offset, DeadDog.PDF.TextLine obj)
+            private void draw(PointF offset, DeadDog.PDF.TextLine obj)
             {
                 if (obj.Text == null || obj.Text.Length == 0)
                     return;
@@ -111,7 +90,7 @@ namespace DeadDog.PDF
                 cb.ShowTextAligned(textAlignment(obj.Alignment), obj.Text, (obj.OffsetX + offset.X).ToPoints(), currentsize.HeightPoint - (obj.Baseline + offset.Y).ToPoints(), 0);
                 cb.EndText();
             }
-            private void drawBox(PointF offset, DeadDog.PDF.Box obj)
+            private void draw(PointF offset, DeadDog.PDF.Box obj)
             {
                 if (!obj.HasBorder && !obj.HasFill)
                     return;
@@ -132,7 +111,7 @@ namespace DeadDog.PDF
                 else if (obj.HasFill)
                     cb.Fill();
             }
-            private void drawElipse(PointF offset, DeadDog.PDF.Elipse obj)
+            private void draw(PointF offset, DeadDog.PDF.Elipse obj)
             {
                 if (!obj.HasBorder && !obj.HasFill)
                     return;
@@ -157,7 +136,7 @@ namespace DeadDog.PDF
                 else if (obj.HasFill)
                     cb.Fill();
             }
-            private void drawLine(PointF offset, DeadDog.PDF.Line obj)
+            private void draw(PointF offset, DeadDog.PDF.Line obj)
             {
                 float x = (offset.X + obj.OffsetX).ToPoints();
                 float y = (offset.Y + obj.OffsetY).ToPoints();
@@ -169,7 +148,7 @@ namespace DeadDog.PDF
                 cb.LineTo(x + obj.Width.ToPoints(), writer.PageSize.Height - y - obj.Height.ToPoints());
                 cb.Stroke();
             }
-            private void drawImage(PointF offset, DeadDog.PDF.ImageObject obj)
+            private void draw(PointF offset, DeadDog.PDF.ImageObject obj)
             {
                 firstpage = false;
                 iTextSharp.text.Image img;
