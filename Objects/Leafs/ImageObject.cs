@@ -8,7 +8,7 @@ namespace DeadDog.PDF
     /// <summary>
     /// Holds information required to draw an image in a pdf document.
     /// </summary>
-    public class ImageObject : PDFObject, IPDFObject
+    public class ImageObject : PDFObject
     {
         private string filepath;
 

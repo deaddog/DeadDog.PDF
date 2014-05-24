@@ -8,7 +8,7 @@ namespace DeadDog.PDF
     /// <summary>
     /// Holds information required to draw a text line in a pdf document.
     /// </summary>
-    public sealed class TextLine : PDFObject, IPDFObject
+    public sealed class TextLine : PDFObject
     {
         private string text;
         private Color color;

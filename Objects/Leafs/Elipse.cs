@@ -8,7 +8,7 @@ namespace DeadDog.PDF
     /// <summary>
     /// Holds information required to draw an elipse in a pdf document.
     /// </summary>
-    public class Elipse : PDFObject, IPDFObject
+    public class Elipse : PDFObject
     {
         private Color fill;
         private Color border;
