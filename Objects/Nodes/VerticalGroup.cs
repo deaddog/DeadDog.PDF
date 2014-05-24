@@ -1,10 +1,11 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Drawing;
 using System.Text;
 
 namespace DeadDog.PDF
 {
-    public class VerticalGroup<T> : PDFGroup<T> where T : IPDFObject
+    public class VerticalGroup<T> : PDFGroup<T> where T : PDFObject
     {
         private float spacer = 0f;
         private bool useHeight = true;
@@ -19,7 +20,7 @@ namespace DeadDog.PDF
             this.list.AddRange(objects);
         }
         public VerticalGroup(float spacer)
-            : base()
+            : base(false)
         {
             this.spacer = spacer;
             useHeight = true;
@@ -42,39 +43,29 @@ namespace DeadDog.PDF
             set { alignment = value; }
         }
 
-        public override float Width
+        protected override SizeF getSize()
         {
-            get
+            if (Objects.Count == 0)
+                return SizeF.Empty;
+
+            SizeF size = Objects[0].Size;
+            for (int i = 1; i < Objects.Count; i++)
             {
-                if (list.Count == 0)
-                    return 0;
-                float w = list[0].Width;
-                for (int i = 1; i < list.Count; i++)
-                    w = list[i].Width > w ? list[i].Width : w;
-                return w;
+                if (Objects[i].Width > size.Width) size.Width = Objects[i].Width;
+                if (useHeight)
+                    size.Height += Objects[i].Height + spacer;
+                else
+                    size.Height += spacer;
             }
-        }
-        public override float Height
-        {
-            get
-            {
-                if (list.Count == 0)
-                    return 0;
-                float h = list[0].Height;
-                for (int i = 1; i < list.Count; i++)
-                    if (useHeight)
-                        h += list[i].Height + spacer;
-                    else
-                        h += spacer;
-                return h;
-            }
+
+            return base.getSize();
         }
 
-        public override System.Drawing.PointF GetLocation(T obj)
+        public override PointF GetLocation(T obj)
         {
             return GetLocation(list.IndexOf(obj));
         }
-        public System.Drawing.PointF GetLocation(int index)
+        public PointF GetLocation(int index)
         {
             System.Drawing.PointF p = this.Location;
             switch (alignment)
@@ -97,12 +88,12 @@ namespace DeadDog.PDF
         }
     }
 
-    public class VerticalGroup : VerticalGroup<IPDFObject>
+    public class VerticalGroup : VerticalGroup<PDFObject>
     {
         public VerticalGroup()
             : base()
         { }
-        public VerticalGroup(float spacer, params IPDFObject[] objects)
+        public VerticalGroup(float spacer, params PDFObject[] objects)
             : base(spacer, objects)
         { }
         public VerticalGroup(float spacer)
