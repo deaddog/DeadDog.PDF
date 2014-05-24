@@ -13,12 +13,12 @@ namespace DeadDog.PDF
     public abstract class PDFGroupSizeable : IPDFGroup
     {
         private PointF offset;
-        private PDFList<IPDFObject> privatelist;
+        private List<IPDFObject> privatelist;
 
         /// <summary>
         /// The <see cref="PDFList{IPDFObject}"/> to which all objects in this group should be added.
         /// </summary>
-        protected PDFList<IPDFObject> list
+        protected List<IPDFObject> list
         {
             get { return privatelist; }
         }
@@ -40,7 +40,7 @@ namespace DeadDog.PDF
         public PDFGroupSizeable(PointF offset)
         {
             this.offset = offset;
-            this.privatelist = new PDFList<IPDFObject>(this);
+            this.privatelist = new List<IPDFObject>();
         }
 
         #region IPDFGroup Members
@@ -127,12 +127,12 @@ namespace DeadDog.PDF
     public abstract class PDFGroupSizeable<T> : IPDFGroup<T> where T : IPDFObject
     {
         private PointF offset;
-        private PDFList<T> privatelist;
+        private List<T> privatelist;
 
         /// <summary>
         /// The <see cref="PDFList{T}"/> to which all objects in this group should be added.
         /// </summary>
-        protected PDFList<T> list
+        protected List<T> list
         {
             get { return privatelist; }
         }
@@ -154,7 +154,7 @@ namespace DeadDog.PDF
         public PDFGroupSizeable(PointF offset)
         {
             this.offset = offset;
-            this.privatelist = new PDFList<T>(this);
+            this.privatelist = new List<T>(this);
         }
 
         #region IPDFGroup Members
