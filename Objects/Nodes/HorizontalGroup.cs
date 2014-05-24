@@ -61,11 +61,11 @@ namespace DeadDog.PDF
             return base.getSize();
         }
 
-        public override PointF GetLocation(T obj)
+        protected override PointF GetGroupingOffset(T obj)
         {
-            return GetLocation(Objects.IndexOf(obj));
+            return getLocation(Objects.IndexOf(obj));
         }
-        public PointF GetLocation(int index)
+        private PointF getLocation(int index)
         {
             System.Drawing.PointF p = this.Location;
             switch (alignment)

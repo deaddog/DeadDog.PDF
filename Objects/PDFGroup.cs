@@ -75,15 +75,11 @@ namespace DeadDog.PDF
                 collector.Add(t);
         }
 
-        #region IPDFGroup<T> Members
-
         /// <summary>
         /// Returns the location of any element within this <see cref="PDFGroup{T}"/>.
         /// </summary>
         /// <param name="obj">The element whichs location is returned.</param>
         /// <returns>The location of obj.</returns>
-        public abstract PointF GetLocation(T obj);
-
-        #endregion
+        protected internal abstract PointF GetGroupingOffset(T obj);
     }
 }
