@@ -37,7 +37,7 @@ namespace DeadDog.PDF
     /// In a <see cref="PDFGroup{T}"/> objects are collected in the protected list property.
     /// </summary>
     /// <typeparam name="T">The type of elements in the pdf group</typeparam>
-    public abstract class PDFGroup<T> : PDFObject, IPDFGroup<T> where T : PDFObject
+    public abstract class PDFGroup<T> : PDFObject where T : PDFObject
     {
         private List<T> privatelist;
 
@@ -75,23 +75,6 @@ namespace DeadDog.PDF
                 collector.Add(t);
         }
 
-        #region IPDFGroup Members
-
-        /// <summary>
-        /// Returns the location of any element within this <see cref="PDFGroup{T}"/> by checking if it is of type T. If it is GetLocation(T obj) is returned.
-        /// </summary>
-        /// <param name="obj">The element whichs location is returned.</param>
-        /// <returns>The location of obj.</returns>
-        public System.Drawing.PointF GetLocation(PDFObject obj)
-        {
-            if (obj is T)
-                return GetLocation((T)obj);
-            else
-                throw new ArgumentException("obj is not of type " + typeof(T).ToString() + ".", "obj");
-        }
-
-        #endregion
-
         #region IPDFGroup<T> Members
 
         /// <summary>
@@ -99,7 +82,7 @@ namespace DeadDog.PDF
         /// </summary>
         /// <param name="obj">The element whichs location is returned.</param>
         /// <returns>The location of obj.</returns>
-        public abstract System.Drawing.PointF GetLocation(T obj);
+        public abstract PointF GetLocation(T obj);
 
         #endregion
     }
