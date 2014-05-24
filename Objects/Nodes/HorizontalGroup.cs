@@ -61,7 +61,7 @@ namespace DeadDog.PDF
             return base.getSize();
         }
 
-        protected override PointF GetGroupingOffset(T obj)
+        protected internal override PointF GetGroupingOffset(T obj)
         {
             return getLocation(Objects.IndexOf(obj));
         }
