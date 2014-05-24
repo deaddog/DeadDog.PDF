@@ -14,13 +14,6 @@ namespace DeadDog.PDF
     {
         private PointF offset;
         private List<IPDFObject> privatelist;
-        /// <summary>
-        /// The <see cref="PDFList{IPDFObject}"/> to which all objects in this group should be added.
-        /// </summary>
-        protected List<IPDFObject> list
-        {
-            get { return privatelist; }
-        }
 
         /// <summary>
         /// Initializes a new instance of the <see cref="PDFGroup"/> class.
@@ -100,7 +93,7 @@ namespace DeadDog.PDF
         /// <param name="collector">An <see cref="ObjectCollector"/> to which all pdf objects are added.</param>
         public void Collect(ObjectCollector collector)
         {
-            collector.Add(list);
+            collector.Add(privatelist);
         }
 
         #endregion
@@ -116,13 +109,6 @@ namespace DeadDog.PDF
     {
         private PointF offset;
         private List<T> privatelist;
-        /// <summary>
-        /// The <see cref="PDFList{T}"/> to which all objects in this group should be added.
-        /// </summary>
-        protected List<T> list
-        {
-            get { return privatelist; }
-        }
 
         /// <summary>
         /// Initializes a new instance of the <see cref="PDFGroup{T}"/> class.
@@ -213,10 +199,7 @@ namespace DeadDog.PDF
         public void Collect(ObjectCollector collector)
         {
             foreach (T t in privatelist)
-            {
-                IPDFObject o = (IPDFObject)t;
-                collector.Add(o);
-            }
+                collector.Add(t);
         }
 
         #endregion
