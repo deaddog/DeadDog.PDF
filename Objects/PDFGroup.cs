@@ -39,8 +39,6 @@ namespace DeadDog.PDF
     /// <typeparam name="T">The type of elements in the pdf group</typeparam>
     public abstract class PDFGroup<T> : PDFObject where T : PDFObject
     {
-        private List<T> privatelist;
-
         /// <summary>
         /// Initializes a new instance of the <see cref="PDFGroup{T}"/> class.
         /// </summary>
@@ -49,7 +47,6 @@ namespace DeadDog.PDF
         public PDFGroup(bool canResize)
             : base(canResize, RectangleF.Empty)
         {
-            this.privatelist = new List<T>();
         }
         /// <summary>
         /// Initializes a new instance of the <see cref="PDFGroup{T}"/> class.
@@ -58,18 +55,19 @@ namespace DeadDog.PDF
         public PDFGroup(bool canResize, RectangleF rectangle)
             : base(canResize, rectangle)
         {
-            this.privatelist = new List<T>();
-        }
-        public List<T> Objects
-        {
-            get { return privatelist; }
         }
 
         /// <summary>
-        /// Returns the location of any element within this <see cref="PDFGroup{T}"/>.
+        /// When implemented in a deriving class, non-recursively gets the PDF objects contained by this <see cref="PDFGroup"/>.
         /// </summary>
-        /// <param name="obj">The element whichs location is returned.</param>
-        /// <returns>The location of obj.</returns>
+        /// <returns>A collection of the <see cref="PDFObject"/>s contained by this <see cref="PDFGroup."/></returns>
+        protected internal abstract IEnumerable<T> GetPDFObjects();
+
+        /// <summary>
+        /// Returns the offset of any element within this <see cref="PDFGroup{T}"/>.
+        /// </summary>
+        /// <param name="obj">The element whichs offset is returned.</param>
+        /// <returns>The offset of <paramref name="obj"/>.</returns>
         protected internal abstract PointF GetGroupingOffset(T obj);
     }
 }
