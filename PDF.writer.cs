@@ -4,6 +4,7 @@ using System.Text;
 
 using iTextSharp.text;
 using iTextSharp.text.pdf;
+using System.Drawing;
 
 namespace DeadDog.PDF
 {
@@ -98,7 +99,7 @@ namespace DeadDog.PDF
                 return;
             }
 
-            private void drawText(DeadDog.PDF.TextLine obj)
+            private void drawText(PointF offset, DeadDog.PDF.TextLine obj)
             {
                 if (obj.Text == null || obj.Text.Length == 0)
                     return;
@@ -109,7 +110,7 @@ namespace DeadDog.PDF
                 cb.ShowTextAligned(textAlignment(obj.Alignment), obj.Text, getP(obj.X), currentsize.HeightPoint - getP(obj.Baseline), 0);
                 cb.EndText();
             }
-            private void drawBox(DeadDog.PDF.Box obj)
+            private void drawBox(PointF offset, DeadDog.PDF.Box obj)
             {
                 if (!obj.HasBorder && !obj.HasFill)
                     return;
@@ -130,7 +131,7 @@ namespace DeadDog.PDF
                 else if (obj.HasFill)
                     cb.Fill();
             }
-            private void drawElipse(DeadDog.PDF.Elipse obj)
+            private void drawElipse(PointF offset, DeadDog.PDF.Elipse obj)
             {
                 if (!obj.HasBorder && !obj.HasFill)
                     return;
@@ -155,7 +156,7 @@ namespace DeadDog.PDF
                 else if (obj.HasFill)
                     cb.Fill();
             }
-            private void drawLine(DeadDog.PDF.Line obj)
+            private void drawLine(PointF offset, DeadDog.PDF.Line obj)
             {
                 firstpage = false;
                 cb.SetColorStroke(new Color(obj.Color));
@@ -164,7 +165,7 @@ namespace DeadDog.PDF
                 cb.LineTo(getP(obj.X + obj.Width), writer.PageSize.Height - getP(obj.Y + obj.Height));
                 cb.Stroke();
             }
-            private void drawImage(DeadDog.PDF.ImageObject obj)
+            private void drawImage(PointF offset, DeadDog.PDF.ImageObject obj)
             {
                 firstpage = false;
                 iTextSharp.text.Image img;
