@@ -10,21 +10,29 @@ namespace DeadDog.PDF
         private float spacer = 0f;
         private bool useHeight = true;
         private HorizontalAlignment alignment;
-        
+
+        private List<T> objects;
+
         public VerticalGroup()
             : this(0f)
         { }
-        public VerticalGroup(float spacer, params T[] objects)
-            : this(spacer)
-        {
-            this.list.AddRange(objects);
-        }
         public VerticalGroup(float spacer)
+            : this(spacer, new T[0])
+        {
+        }
+        public VerticalGroup(float spacer, params T[] objects)
             : base(false)
         {
             this.spacer = spacer;
             useHeight = true;
             alignment = HorizontalAlignment.Center;
+
+            this.objects = new List<T>(objects);
+        }
+
+        public List<T> Objects
+        {
+            get { return objects; }
         }
 
         public float Spacer
@@ -45,15 +53,15 @@ namespace DeadDog.PDF
 
         protected override SizeF getSize()
         {
-            if (Objects.Count == 0)
+            if (objects.Count == 0)
                 return SizeF.Empty;
 
-            SizeF size = Objects[0].Size;
-            for (int i = 1; i < Objects.Count; i++)
+            SizeF size = objects[0].Size;
+            for (int i = 1; i < objects.Count; i++)
             {
-                if (Objects[i].Width > size.Width) size.Width = Objects[i].Width;
+                if (objects[i].Width > size.Width) size.Width = objects[i].Width;
                 if (useHeight)
-                    size.Height += Objects[i].Height + spacer;
+                    size.Height += objects[i].Height + spacer;
                 else
                     size.Height += spacer;
             }
@@ -61,9 +69,15 @@ namespace DeadDog.PDF
             return base.getSize();
         }
 
+        protected internal override IEnumerable<T> GetPDFObjects()
+        {
+            foreach (T obj in objects)
+                yield return obj;
+        }
+
         protected internal override PointF GetGroupingOffset(T obj)
         {
-            return getLocation(Objects.IndexOf(obj));
+            return getLocation(objects.IndexOf(obj));
         }
         private PointF getLocation(int index)
         {

@@ -11,20 +11,28 @@ namespace DeadDog.PDF
         private bool useWidth;
         private VerticalAlignment alignment;
 
+        private List<T> objects;
+
         public HorizontalGroup()
             : this(0f)
         { }
-        public HorizontalGroup(float spacer, params T[] objects)
-            : this(spacer)
-        {
-            this.list.AddRange(objects);
-        }
         public HorizontalGroup(float spacer)
+            : this(spacer, new T[0])
+        {
+        }
+        public HorizontalGroup(float spacer, params T[] objects)
             : base(false)
         {
             this.spacer = spacer;
             useWidth = true;
             alignment = VerticalAlignment.Middle;
+
+            this.objects = new List<T>(objects);
+        }
+
+        public List<T> Objects
+        {
+            get { return objects; }
         }
 
         public float Spacer
@@ -45,15 +53,15 @@ namespace DeadDog.PDF
 
         protected override SizeF getSize()
         {
-            if (Objects.Count == 0)
+            if (objects.Count == 0)
                 return SizeF.Empty;
 
-            SizeF size = Objects[0].Size;
-            for (int i = 1; i < Objects.Count; i++)
+            SizeF size = objects[0].Size;
+            for (int i = 1; i < objects.Count; i++)
             {
-                if (Objects[i].Height > size.Height) size.Height = Objects[i].Height;
+                if (objects[i].Height > size.Height) size.Height = objects[i].Height;
                 if (useWidth)
-                    size.Width += Objects[i].Width + spacer;
+                    size.Width += objects[i].Width + spacer;
                 else
                     size.Width += spacer;
             }
@@ -61,9 +69,15 @@ namespace DeadDog.PDF
             return base.getSize();
         }
 
+        protected internal override IEnumerable<T> GetPDFObjects()
+        {
+            foreach (T obj in objects)
+                yield return obj;
+        }
+
         protected internal override PointF GetGroupingOffset(T obj)
         {
-            return getLocation(Objects.IndexOf(obj));
+            return getLocation(objects.IndexOf(obj));
         }
         private PointF getLocation(int index)
         {
