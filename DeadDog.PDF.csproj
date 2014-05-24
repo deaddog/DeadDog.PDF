@@ -58,7 +58,6 @@
     <Compile Include="Objects\Leafs\TextLine.cs" />
     <Compile Include="Objects\Nodes\HorizontalAlignment.cs" />
     <Compile Include="Objects\Nodes\HorizontalGroup.cs" />
-    <Compile Include="Objects\Nodes\TextBox.cs" />
     <Compile Include="Objects\Nodes\VerticalAlignment.cs" />
     <Compile Include="Objects\Nodes\VerticalGroup.cs" />
     <Compile Include="Objects\PDFGroup.cs" />
