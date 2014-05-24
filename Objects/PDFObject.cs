@@ -119,11 +119,5 @@ namespace DeadDog.PDF
         {
             return rectangle.Size;
         }
-
-        /// <summary>
-        /// Collects all pdf objects contained within this object.
-        /// </summary>
-        /// <param name="collector">An <see cref="ObjectCollector"/> to which all pdf objects are added.</param>
-        public abstract void Collect(ObjectCollector collector);
     }
 }

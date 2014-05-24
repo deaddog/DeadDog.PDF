@@ -98,15 +98,6 @@ namespace DeadDog.PDF
             set;
         }
 
-        /// <summary>
-        /// Collects all pdf objects contained within this group.
-        /// </summary>
-        /// <param name="collector">An <see cref="ObjectCollector"/> to which all pdf objects are added.</param>
-        public void Collect(ObjectCollector collector)
-        {
-            collector.Add(privatelist);
-        }
-
         #endregion
     }
 
@@ -208,16 +199,6 @@ namespace DeadDog.PDF
         {
             get;
             set;
-        }
-
-        /// <summary>
-        /// Collects all pdf objects contained within this group.
-        /// </summary>
-        /// <param name="collector">An <see cref="ObjectCollector"/> to which all pdf objects are added.</param>
-        public void Collect(ObjectCollector collector)
-        {
-            foreach (T t in privatelist)
-                collector.Add(t);
         }
 
         #endregion

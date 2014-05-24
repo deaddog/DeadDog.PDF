@@ -66,16 +66,6 @@ namespace DeadDog.PDF
         }
 
         /// <summary>
-        /// Collects all pdf objects contained within this group.
-        /// </summary>
-        /// <param name="collector">An <see cref="ObjectCollector"/> to which all pdf objects are added.</param>
-        public void Collect(ObjectCollector collector)
-        {
-            foreach (T t in privatelist)
-                collector.Add(t);
-        }
-
-        /// <summary>
         /// Returns the location of any element within this <see cref="PDFGroup{T}"/>.
         /// </summary>
         /// <param name="obj">The element whichs location is returned.</param>

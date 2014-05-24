@@ -40,11 +40,5 @@ namespace DeadDog.PDF
         {
             get;
         }
-
-        /// <summary>
-        /// Collects all pdf objects contained within this object.
-        /// </summary>
-        /// <param name="collector">An <see cref="ObjectCollector"/> to which all pdf objects are added.</param>
-        void Collect(ObjectCollector collector);
     }
 }

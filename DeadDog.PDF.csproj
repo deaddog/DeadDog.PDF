@@ -47,7 +47,6 @@
   <ItemGroup>
     <Compile Include="Conversion.cs" />
     <Compile Include="FontInfo.cs" />
-    <Compile Include="Objects\Interfaces\ICollectable.cs" />
     <Compile Include="Objects\Interfaces\IPDFGroup.cs" />
     <Compile Include="Objects\Interfaces\IPDFObject.cs" />
     <Compile Include="Objects\Leafs\Box.cs" />
@@ -62,7 +61,6 @@
     <Compile Include="Objects\Nodes\TextBox.cs" />
     <Compile Include="Objects\Nodes\VerticalAlignment.cs" />
     <Compile Include="Objects\Nodes\VerticalGroup.cs" />
-    <Compile Include="Objects\ObjectCollector.cs" />
     <Compile Include="Objects\PDFGroup.cs" />
     <Compile Include="Objects\PDFGroupSizeable.cs" />
     <Compile Include="Objects\PDFObject.cs" />

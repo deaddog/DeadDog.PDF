@@ -49,14 +49,5 @@ namespace DeadDog.PDF
             : base(true, rectangle)
         {
         }
-
-        /// <summary>
-        /// Adds nothing to an object collector since an <see cref="EmptyBox"/> is not visible.
-        /// </summary>
-        /// <param name="collector">An <see cref="ObjectCollector"/> to which nothing is added.</param>
-        public override void Collect(ObjectCollector collector)
-        {
-            //Add nothing.
-        }
     }
 }

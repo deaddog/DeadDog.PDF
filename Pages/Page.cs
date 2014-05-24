@@ -24,10 +24,5 @@ namespace DeadDog.PDF
         {
             get { return pagesize; }
         }
-
-        public void Collect(ObjectCollector collector)
-        {
-            collector.Add(objects);
-        }
     }
 }
