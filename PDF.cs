@@ -6,22 +6,22 @@ namespace DeadDog.PDF
 {
     public partial class PDFDocument
     {
-        public class PageCollection : IEnumerable<IPDFPage>
+        public class PageCollection : IEnumerable<Page>
         {
-            private List<IPDFPage> objects = new List<IPDFPage>();
+            private List<Page> objects = new List<Page>();
 
-            public T Add<T>(T value) where T : IPDFPage
+            public T Add<T>(T value) where T : Page
             {
                 objects.Add(value);
                 return value;
             }
-            public void Add(params IPDFPage[] values)
+            public void Add(params Page[] values)
             {
-                foreach (IPDFPage value in values)
+                foreach (Page value in values)
                     Add(value);
             }
 
-            public bool Remove(IPDFPage value)
+            public bool Remove(Page value)
             {
                 return objects.Remove(value);
             }
@@ -30,11 +30,11 @@ namespace DeadDog.PDF
                 objects.RemoveAt(index);
             }
 
-            public bool Contains(IPDFPage value)
+            public bool Contains(Page value)
             {
                 return objects.Contains(value);
             }
-            public IPDFPage this[int index]
+            public Page this[int index]
             {
                 get { return objects[index]; }
             }
@@ -43,12 +43,12 @@ namespace DeadDog.PDF
                 get { return objects.Count; }
             }
 
-            public IPDFPage[] ToArray()
+            public Page[] ToArray()
             {
                 return objects.ToArray();
             }
-            
-            public IEnumerator<IPDFPage> GetEnumerator()
+
+            public IEnumerator<Page> GetEnumerator()
             {
                 return objects.GetEnumerator();
             }

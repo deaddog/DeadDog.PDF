@@ -4,7 +4,7 @@ using System.Text;
 
 namespace DeadDog.PDF
 {
-    public class Page : IPDFPage
+    public class Page
     {
         private PageSize pagesize;
         private List<IPDFObject> objects;
@@ -20,8 +20,6 @@ namespace DeadDog.PDF
             get { return objects; }
         }
 
-        #region IPDFPage Members
-
         public PageSize PageSize
         {
             get { return pagesize; }
@@ -31,7 +29,5 @@ namespace DeadDog.PDF
         {
             collector.Add(objects);
         }
-
-        #endregion
     }
 }

@@ -20,7 +20,7 @@ namespace DeadDog.PDF
             private PageSize currentsize = PageSize.A4;
             private bool firstpage = true; //Used for determining that the first Page object does not create a blank page.
 
-            public Writer(Document document, string filename, IPDFPage[] pages)
+            public Writer(Document document, string filename, Page[] pages)
             {
                 this.document = document;
                 try
@@ -29,7 +29,7 @@ namespace DeadDog.PDF
                     document.Open();
                     cb = writer.DirectContent;
 
-                    foreach (IPDFPage page in pages)
+                    foreach (Page page in pages)
                         draw(page);
                 }
                 catch (DocumentException de)
@@ -53,7 +53,7 @@ namespace DeadDog.PDF
                 }
             }
 
-            private void draw(IPDFPage page)
+            private void draw(Page page)
             {
                 currentsize = page.PageSize;
                 if (!firstpage)
