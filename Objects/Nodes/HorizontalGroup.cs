@@ -81,23 +81,25 @@ namespace DeadDog.PDF
         }
         private PointF getLocation(int index)
         {
-            System.Drawing.PointF p = this.Location;
+            float height = this.Height;
+            PointF p = PointF.Empty;
+
             switch (alignment)
             {
                 case VerticalAlignment.Top:
                     //Do nothing because p.Y == this.Y
                     break;
                 case VerticalAlignment.Middle:
-                    p.Y += (this.Height - list[index].Height) / 2f;
+                    p.Y = (height - objects[index].Height) / 2f;
                     break;
                 case VerticalAlignment.Bottom:
-                    p.Y += this.Height - list[index].Height;
+                    p.Y = height - objects[index].Height;
                     break;
             }
-            p.X += spacer * index;
+            p.X = spacer * index;
             if (useWidth)
                 for (int i = 0; i < index; i++)
-                    p.X += list[i].Width;
+                    p.X += objects[i].Width;
             return p;
         }
     }
