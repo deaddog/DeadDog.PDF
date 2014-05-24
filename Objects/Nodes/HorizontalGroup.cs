@@ -63,7 +63,7 @@ namespace DeadDog.PDF
 
         public override PointF GetLocation(T obj)
         {
-            return GetLocation(list.IndexOf(obj));
+            return GetLocation(Objects.IndexOf(obj));
         }
         public PointF GetLocation(int index)
         {
