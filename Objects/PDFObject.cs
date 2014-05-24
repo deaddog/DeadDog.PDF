@@ -36,24 +36,24 @@ namespace DeadDog.PDF
         /// </summary>
         public PointF Offset
         {
-            get { return offset; }
-            set { offset = value; }
+            get { return rectangle.Location; }
+            set { rectangle.Location = value; }
         }
         /// <summary>
         /// Gets or sets the x offset for this <see cref="PDFObject"/>.
         /// </summary>
         public float OffsetX
         {
-            get { return offset.X; }
-            set { offset.X = value; }
+            get { return rectangle.X; }
+            set { rectangle.X = value; }
         }
         /// <summary>
         /// Gets or sets the y offset for this <see cref="PDFObject"/>.
         /// </summary>
         public float OffsetY
         {
-            get { return offset.Y; }
-            set { offset.Y = value; }
+            get { return rectangle.Y; }
+            set { rectangle.Y = value; }
         }
 
         /// <summary>
