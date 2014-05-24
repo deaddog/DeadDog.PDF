@@ -26,11 +26,6 @@ namespace DeadDog.PDF
             alignment = HorizontalAlignment.Center;
         }
 
-        public PDFList<T> Objects
-        {
-            get { return list; }
-        }
-
         public float Spacer
         {
             get { return spacer; }

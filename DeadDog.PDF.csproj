@@ -65,7 +65,6 @@
     <Compile Include="Objects\ObjectCollector.cs" />
     <Compile Include="Objects\PDFGroup.cs" />
     <Compile Include="Objects\PDFGroupSizeable.cs" />
-    <Compile Include="Objects\PDFList.cs" />
     <Compile Include="Objects\PDFObject.cs" />
     <Compile Include="Pages\Interfaces\IPDFPage.cs" />
     <Compile Include="Pages\Page.cs" />
