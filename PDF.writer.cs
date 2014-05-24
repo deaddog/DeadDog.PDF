@@ -2,6 +2,7 @@ using System;
 using System.Collections.Generic;
 using System.Text;
 
+using Color = iTextSharp.text.Color;
 using iTextSharp.text;
 using iTextSharp.text.pdf;
 using System.Drawing;
@@ -107,7 +108,7 @@ namespace DeadDog.PDF
                 cb.BeginText();
                 cb.SetColorFill(new Color(obj.Color));
                 cb.SetFontAndSize(obj.Font.iTextSharpFont.BaseFont, obj.Font.Size);
-                cb.ShowTextAligned(textAlignment(obj.Alignment), obj.Text, getP(obj.X), currentsize.HeightPoint - getP(obj.Baseline), 0);
+                cb.ShowTextAligned(textAlignment(obj.Alignment), obj.Text, (obj.OffsetX + offset.X).ToPoints(), currentsize.HeightPoint - (obj.Baseline + offset.Y).ToPoints(), 0);
                 cb.EndText();
             }
             private void drawBox(PointF offset, DeadDog.PDF.Box obj)
@@ -115,7 +116,7 @@ namespace DeadDog.PDF
                 if (!obj.HasBorder && !obj.HasFill)
                     return;
                 firstpage = false;
-                float y = currentsize.HeightPoint - getP(obj.Size.Height) - getP(obj.Location.Y);
+                float y = currentsize.HeightPoint - obj.Size.Height.ToPoints() - obj.OffsetY.ToPoints();
 
                 if (obj.HasBorder)
                 {
@@ -123,7 +124,7 @@ namespace DeadDog.PDF
                     cb.SetColorStroke(new Color(obj.BorderColor));
                 }
                 cb.SetColorFill(new Color(obj.FillColor));
-                cb.Rectangle(getP(obj.Location.X), y, getP(obj.Size.Width), getP(obj.Size.Height));
+                cb.Rectangle((offset.X + obj.OffsetX).ToPoints(), y, obj.Size.Width.ToPoints(), obj.Size.Height.ToPoints());
                 if (obj.HasBorder && obj.HasFill)
                     cb.FillStroke();
                 else if (obj.HasBorder)
@@ -136,7 +137,7 @@ namespace DeadDog.PDF
                 if (!obj.HasBorder && !obj.HasFill)
                     return;
                 firstpage = false;
-                float y = currentsize.HeightPoint - getP(obj.Size.Height) - getP(obj.Location.Y);
+                float y = currentsize.HeightPoint - obj.Size.Height.ToPoints() - (obj.OffsetY + offset.Y).ToPoints();
 
                 if (obj.HasBorder)
                 {
@@ -144,11 +145,11 @@ namespace DeadDog.PDF
                     cb.SetColorStroke(new Color(obj.BorderColor));
                 }
                 cb.SetColorFill(new Color(obj.FillColor));
-                float x = getP(obj.Location.X);
-                float x2 = getP(obj.Size.Width) + x;
-                float y2 = getP(obj.Size.Height) + y;
+                float x = (obj.OffsetX + offset.X).ToPoints();
+                float x2 = obj.Size.Width.ToPoints() + x;
+                float y2 = obj.Size.Height.ToPoints() + y;
                 cb.Ellipse(x, y, x2, y2);
-                //cb.Rectangle(getP(obj.Location.X), y, getP(obj.Size.Width), getP(obj.Size.Height));
+
                 if (obj.HasBorder && obj.HasFill)
                     cb.FillStroke();
                 else if (obj.HasBorder)
@@ -158,11 +159,14 @@ namespace DeadDog.PDF
             }
             private void drawLine(PointF offset, DeadDog.PDF.Line obj)
             {
+                float x = (offset.X + obj.OffsetX).ToPoints();
+                float y = (offset.Y + obj.OffsetY).ToPoints();
+
                 firstpage = false;
                 cb.SetColorStroke(new Color(obj.Color));
                 cb.SetLineWidth(obj.LineWidth);
-                cb.MoveTo(getP(obj.X), writer.PageSize.Height - getP(obj.Y));
-                cb.LineTo(getP(obj.X + obj.Width), writer.PageSize.Height - getP(obj.Y + obj.Height));
+                cb.MoveTo(x, writer.PageSize.Height - y);
+                cb.LineTo(x + obj.Width.ToPoints(), writer.PageSize.Height - y - obj.Height.ToPoints());
                 cb.Stroke();
             }
             private void drawImage(PointF offset, DeadDog.PDF.ImageObject obj)
@@ -177,13 +181,12 @@ namespace DeadDog.PDF
                     imagePaths.Add(obj.Filepath);
                     images.Add(img);
                 }
-                img.ScaleAbsolute(getP(obj.Size.Width), getP(obj.Size.Height));
+                img.ScaleAbsolute(obj.Size.Width.ToPoints(), obj.Size.Height.ToPoints());
 
-                float x = getP(obj.Location.X);
-                float y = currentsize.HeightPoint - getP(obj.Location.Y) - img.ScaledHeight;
+                float x = (obj.OffsetX + offset.X).ToPoints();
+                float y = currentsize.HeightPoint - (obj.OffsetY + offset.Y).ToPoints() - img.ScaledHeight;
                 img.SetAbsolutePosition(x, y);
                 cb.AddImage(img);
-                //document.Add(img);
             }
 
             private List<iTextSharp.text.Image> images = new List<iTextSharp.text.Image>();
