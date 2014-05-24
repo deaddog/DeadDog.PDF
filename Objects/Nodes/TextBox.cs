@@ -458,7 +458,7 @@ namespace DeadDog.PDF
                 case SizingMethod.FixedSize:
                     throw new NotImplementedException();
             }
-            string[] ss = split(text, box.Width - margins[1] - margins[3]);
+            string[] ss = split(text, this.font, box.Width - margins[1] - margins[3]);
 
             //Set a correct amount of elements 
             if (ss.Length > textGroup.Objects.Count)
@@ -476,14 +476,14 @@ namespace DeadDog.PDF
             textGroup.Y = textY - textGroup.Height / 2; textGroup.X = textX;
         }
 
-        private string[] split(string s, float maxWidth)
+        private static string[] split(string s, FontInfo font, float maxWidth)
         {
             List<string> list = new List<string>();
             list.AddRange(s.Replace("\r\n", "\n").Replace('\r', '\n').Split('\r', '\n'));
             int index = 0;
             while (index < list.Count)
             {
-                int i = check(list[index], 0, list[index].Length, maxWidth);
+                int i = check(list[index], font, 0, list[index].Length, maxWidth);
 
                 string tempS = list[index].Substring(0, i);
                 if (list[index].Length > i && i > 0)
@@ -509,11 +509,11 @@ namespace DeadDog.PDF
             }
             return list.ToArray();
         }
-        private int check(string s, int offset, int length, float maxWidth)
+        private static int check(string s, FontInfo font, int offset, int length, float maxWidth)
         {
             if (length == 1)
             {
-                if (validlength(s, offset + length, maxWidth))
+                if (validlength(s, font, offset + length, maxWidth))
                     return offset + 1;
                 else
                     return offset;
@@ -522,12 +522,12 @@ namespace DeadDog.PDF
             int a = (length + 1) / 2;
             if (a == 0)
                 return 0;
-            else if (validlength(s, offset + a, maxWidth))
-                return check(s, offset + a, length - a, maxWidth);
+            else if (validlength(s, font, offset + a, maxWidth))
+                return check(s, font, offset + a, length - a, maxWidth);
             else
-                return check(s, offset, a, maxWidth);
+                return check(s, font, offset, a, maxWidth);
         }
-        private bool validlength(string s, int length, float maxWidth)
+        private static bool validlength(string s, FontInfo font, int length, float maxWidth)
         {
             float f = font.MeasureStringWidth(s.Substring(0, length).Trim());
             return f <= maxWidth;
