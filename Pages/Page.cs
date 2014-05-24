@@ -7,15 +7,15 @@ namespace DeadDog.PDF
     public class Page
     {
         private PageSize pagesize;
-        private List<IPDFObject> objects;
+        private List<PDFObject> objects;
 
         public Page(PageSize pagesize)
         {
             this.pagesize = pagesize;
-            this.objects = new List<IPDFObject>();
+            this.objects = new List<PDFObject>();
         }
 
-        public List<IPDFObject> Objects
+        public List<PDFObject> Objects
         {
             get { return objects; }
         }
