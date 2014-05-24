@@ -12,9 +12,10 @@ namespace DeadDog.PDF
     {
         private Color fill;
         private Color border;
-        private float width = 0.5f;
+        private float width;
 
-        private bool hasBorder = true, hasFill = true;
+        private bool hasBorder;
+        private bool hasFill;
 
         /// <summary>
         /// Initializes a new instance of the <see cref="Box"/> class.

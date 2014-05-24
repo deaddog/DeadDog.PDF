@@ -20,9 +20,19 @@ namespace DeadDog.PDF
         /// </summary>
         /// <param name="font">The font used to display text in this textline.</param>
         public TextLine(FontInfo font)
-            : base()
+            : this(font, 0, 0)
         {
-            this.Location = new PointF(0, 0);
+        }
+
+        /// <summary>
+        /// Initializes a new instance of the <see cref="TextLine"/> class.
+        /// </summary>
+        /// <param name="font">The font used to display text in this textline.</param>
+        /// <param name="offsetX">The x offset for the line.</param>
+        /// <param name="offsetY">The y offset for the line.</param>
+        public TextLine(FontInfo font, float offsetX, float offsetY)
+            : base(true, new RectangleF(offsetX, offsetY, 0, 0))
+        {
             this.text = string.Empty;
             this.font = font;
             this.color = Color.Black;
@@ -63,18 +73,14 @@ namespace DeadDog.PDF
         }
 
         /// <summary>
-        /// Gets the height of this <see cref="TextLine"/> object.
+        /// Gets the size of the string contained by this <see cref="TextLine"/>.
         /// </summary>
-        public override float Height
+        /// <returns>
+        /// The size of the <see cref="TextLine" />.
+        /// </returns>
+        protected override SizeF getSize()
         {
-            get { return font.Height; }
-        }
-        /// <summary>
-        /// Gets the width of this <see cref="TextLine"/> object.
-        /// </summary>
-        public override float Width
-        {
-            get { return font.MeasureStringWidth(text); }
+            return new SizeF(font.MeasureStringWidth(text), font.Height);
         }
 
         /// <summary>

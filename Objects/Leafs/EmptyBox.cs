@@ -8,52 +8,46 @@ namespace DeadDog.PDF
     /// <summary>
     /// Holds information on the size of a box. The box is not drawn but only used as a space buffer.
     /// </summary>
-    public sealed class EmptyBox : PDFObjectSizeable, IPDFObject
+    public sealed class EmptyBox : PDFObject, IPDFObject
     {
-        private SizeF size;
         /// <summary>
-        /// Initializes a new instance of the <see cref="EmptyBox"/> class with the selected properties.
+        /// Initializes a new instance of the <see cref="EmptyBox"/> class.
         /// </summary>
-        /// <param name="width">The width of this box.</param>
-        /// <param name="height">The height of this box.</param>
+        /// <param name="width">The width of the box.</param>
+        /// <param name="height">The height of the box.</param>
         public EmptyBox(float width, float height)
-            : this(new RectangleF(0, 0, width, height))
+            : this(0, 0, width, height)
         {
         }
+
         /// <summary>
-        /// Initializes a new instance of the <see cref="EmptyBox"/> class with the selected properties.
+        /// Initializes a new instance of the <see cref="EmptyBox"/> class.
         /// </summary>
-        /// <param name="rectangle">The location and size of this box.</param>
+        /// <param name="size">The size of the box.</param>
+        public EmptyBox(SizeF size)
+            : this(new RectangleF(PointF.Empty, size))
+        {
+        }
+
+        /// <summary>
+        /// Initializes a new instance of the <see cref="EmptyBox"/> class.
+        /// </summary>
+        /// <param name="offsetX">The x offset for the box.</param>
+        /// <param name="offsetY">The y offset for the box.</param>
+        /// <param name="width">The width of the box.</param>
+        /// <param name="height">The height of the box.</param>
+        public EmptyBox(float offsetX, float offsetY, float width, float height)
+            : this(RectangleF.FromLTRB(offsetX, offsetY, offsetX + width, offsetY + height))
+        {
+        }
+
+        /// <summary>
+        /// Initializes a new instance of the <see cref="EmptyBox"/> class.
+        /// </summary>
+        /// <param name="rectangle">A rectangle describing the offset and size of the box.</param>
         public EmptyBox(RectangleF rectangle)
+            : base(true, rectangle)
         {
-            this.Location = rectangle.Location;
-            this.size = rectangle.Size;
-        }
-
-        /// <summary>
-        /// Gets or sets the size of this <see cref="EmptyBox"/> object.
-        /// </summary>
-        public override SizeF Size
-        {
-            get { return size; }
-            set { size = value; }
-        }
-
-        /// <summary>
-        /// Gets or sets the height of this <see cref="EmptyBox"/> object.
-        /// </summary>
-        public override float Height
-        {
-            get { return size.Height; }
-            set { size.Height = value; }
-        }
-        /// <summary>
-        /// Gets or sets the width of this <see cref="EmptyBox"/> object.
-        /// </summary>
-        public override float Width
-        {
-            get { return size.Width; }
-            set { size.Width = value; }
         }
 
         /// <summary>
