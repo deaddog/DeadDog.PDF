@@ -60,11 +60,9 @@ namespace DeadDog.PDF
                     document.NewPage();
                 firstpage = false;
 
-                ObjectCollector collector = new ObjectCollector();
-                page.Collect(collector);
-
-                foreach (IPDFObject obj in collector.GetObjects)
-                    draw(obj);
+                PointF offset = PointF.Empty;
+                foreach (var obj in page.Objects)
+                    draw(offset, (dynamic)obj);
             }
 
             private void draw<T>(PointF offset, PDFGroup<T> group) where T : PDFObject
