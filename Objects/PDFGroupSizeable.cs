@@ -7,13 +7,13 @@ namespace DeadDog.PDF
 {
     /// <summary>
     /// Implements basic functionalities for sizeable pdf groups.
-    /// Groups are collections of <see cref="IPDFObject"/> objects
+    /// Groups are collections of <see cref="PDFObject"/> objects
     /// In a <see cref="PDFGroupSizeable"/> objects are collected in the protected list property.
     /// </summary>
     public abstract class PDFGroupSizeable : IPDFGroup
     {
         private PointF offset;
-        private List<IPDFObject> privatelist;
+        private List<PDFObject> privatelist;
 
         /// <summary>
         /// Initializes a new instance of the <see cref="PDFGroupSizeable" /> class.
@@ -32,7 +32,7 @@ namespace DeadDog.PDF
         public PDFGroupSizeable(PointF offset)
         {
             this.offset = offset;
-            this.privatelist = new List<IPDFObject>();
+            this.privatelist = new List<PDFObject>();
         }
 
         #region IPDFGroup Members
@@ -42,7 +42,7 @@ namespace DeadDog.PDF
         /// </summary>
         /// <param name="obj">The element whichs location is returned.</param>
         /// <returns>The location of obj.</returns>
-        public abstract System.Drawing.PointF GetLocation(IPDFObject obj);
+        public abstract System.Drawing.PointF GetLocation(PDFObject obj);
 
         #endregion
 
@@ -112,11 +112,11 @@ namespace DeadDog.PDF
 
     /// <summary>
     /// Implements basic functionalities for sizeable pdf groups using generic types.
-    /// Groups are collections of <see cref="IPDFObject"/> objects
+    /// Groups are collections of <see cref="PDFObject"/> objects
     /// In a <see cref="PDFGroupSizeable{T}"/> objects are collected in the protected list property.
     /// </summary>
     /// <typeparam name="T">The type of elements in the pdf group</typeparam>
-    public abstract class PDFGroupSizeable<T> : IPDFGroup<T> where T : IPDFObject
+    public abstract class PDFGroupSizeable<T> : IPDFGroup<T> where T : PDFObject
     {
         private PointF offset;
         private List<T> privatelist;
@@ -148,7 +148,7 @@ namespace DeadDog.PDF
         /// </summary>
         /// <param name="obj">The element whichs location is returned.</param>
         /// <returns>The location of obj.</returns>
-        public System.Drawing.PointF GetLocation(IPDFObject obj)
+        public System.Drawing.PointF GetLocation(PDFObject obj)
         {
             if (obj is T)
                 return GetLocation((T)obj);
@@ -217,10 +217,7 @@ namespace DeadDog.PDF
         public void Collect(ObjectCollector collector)
         {
             foreach (T t in privatelist)
-            {
-                IPDFObject o = (IPDFObject)t;
-                collector.Add(o);
-            }
+                collector.Add(t);
         }
 
         #endregion
