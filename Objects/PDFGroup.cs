@@ -68,6 +68,9 @@ namespace DeadDog.PDF
         /// </summary>
         /// <param name="obj">The element whichs offset is returned.</param>
         /// <returns>The offset of <paramref name="obj"/>.</returns>
-        protected internal abstract PointF GetGroupingOffset(T obj);
+        protected internal virtual PointF GetGroupingOffset(T obj)
+        {
+            return PointF.Empty;
+        }
     }
 }
