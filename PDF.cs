@@ -15,11 +15,6 @@ namespace DeadDog.PDF
                 objects.Add(value);
                 return value;
             }
-            public void Add(params Page[] values)
-            {
-                foreach (Page value in values)
-                    Add(value);
-            }
 
             public bool Remove(Page value)
             {
