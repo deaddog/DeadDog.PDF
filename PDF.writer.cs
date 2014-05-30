@@ -67,7 +67,7 @@ namespace DeadDog.PDF
 
             private void draw<T>(PointF offset, PDFGroup<T> group) where T : PDFObject
             {
-                foreach (var obj in group.Objects)
+                foreach (var obj in group.GetPDFObjects())
                 {
                     var gOff = group.GetGroupingOffset(obj);
                     draw(new PointF(
