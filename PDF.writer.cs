@@ -67,12 +67,13 @@ namespace DeadDog.PDF
 
             private void draw<T>(PointF offset, PDFGroup<T> group) where T : PDFObject
             {
+                offset = new PointF(offset.X + group.OffsetX, offset.Y + group.OffsetY);
                 foreach (var obj in group.GetPDFObjects())
                 {
                     var gOff = group.GetGroupingOffset(obj);
                     draw(new PointF(
-                        offset.X + group.OffsetX + gOff.X,
-                        offset.Y + group.OffsetY + gOff.Y),
+                        offset.X + gOff.X,
+                        offset.Y + gOff.Y),
                         ((dynamic)obj));
                 }
             }
@@ -93,7 +94,7 @@ namespace DeadDog.PDF
                 if (!obj.HasBorder && !obj.HasFill)
                     return;
                 firstpage = false;
-                float y = currentsize.HeightPoint - obj.Size.Height.ToPoints() - obj.OffsetY.ToPoints();
+                float y = currentsize.HeightPoint - (obj.Size.Height + offset.Y + obj.OffsetY).ToPoints();
 
                 if (obj.HasBorder)
                 {
