@@ -31,7 +31,7 @@ namespace DeadDog.PDF
         /// <param name="offsetX">The x offset for the line.</param>
         /// <param name="offsetY">The y offset for the line.</param>
         public TextLine(FontInfo font, float offsetX, float offsetY)
-            : base(true, new RectangleF(offsetX, offsetY, 0, 0))
+            : base(false, new RectangleF(offsetX, offsetY, 0, 0))
         {
             this.text = string.Empty;
             this.font = font;
