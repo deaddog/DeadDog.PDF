@@ -66,7 +66,7 @@ namespace DeadDog.PDF
                     size.Width += spacer;
             }
 
-            return base.getSize();
+            return size;
         }
 
         protected internal override IEnumerable<T> GetPDFObjects()
