@@ -43,7 +43,7 @@ namespace DeadDog.PDF
         public bool UseHeight
         {
             get { return useHeight; }
-            set { useHeight = false; }
+            set { useHeight = value; }
         }
         public HorizontalAlignment Alignment
         {
