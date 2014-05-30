@@ -88,8 +88,8 @@ namespace DeadDog.PDF
         /// </summary>
         public float Baseline
         {
-            get { return this.Y + font.AscenderHeight + font.BaseHeight; }
-            set { this.Y = value - font.AscenderHeight - font.BaseHeight; }
+            get { return this.OffsetY + font.AscenderHeight + font.BaseHeight; }
+            set { this.OffsetY = value - font.AscenderHeight - font.BaseHeight; }
         }
     }
 }
