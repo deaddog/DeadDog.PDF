@@ -58,18 +58,21 @@ namespace DeadDog.PDF
         {
             get { return pages; }
         }
-	
+
         public PDFDocument()
         {
             this.pages = new PageCollection();
         }
 
-        public void Create(string filename)
+        public void Create(string filename, bool open = false)
         {
             if (Pages.Count == 0)
                 throw new Exception("No pages added.");
 
             Writer w = new Writer(new iTextSharp.text.Document(), filename, Pages.ToArray());
+
+            if (open)
+                System.Diagnostics.Process.Start(filename);
         }
     }
 }
