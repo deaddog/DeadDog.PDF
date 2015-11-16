@@ -1,18 +1,12 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Drawing;
-using System.Text;
+﻿using System.Drawing;
 
 namespace DeadDog.PDF
 {
     /// <summary>
     /// Holds information required to draw a line in a pdf document.
     /// </summary>
-    public class Line : PDFObject
+    public class Line : StrokeObject
     {
-        private Color color;
-        private float width;
-
         /// <summary>
         /// Initializes a new instance of the <see cref="Line"/> class.
         /// </summary>
@@ -51,26 +45,6 @@ namespace DeadDog.PDF
         public Line(RectangleF rectangle)
             : base(true, rectangle)
         {
-            this.color = Color.Black;
-
-            this.width = 0.5f;
-        }
-
-        /// <summary>
-        /// Gets or sets the color of this <see cref="Line"/> object.
-        /// </summary>
-        public Color Color
-        {
-            get { return color; }
-            set { color = value; }
-        }
-        /// <summary>
-        /// Gets or sets the width (thickness) of this <see cref="Line"/> object.
-        /// </summary>
-        public float LineWidth
-        {
-            get { return width; }
-            set { width = value; }
         }
     }
 }

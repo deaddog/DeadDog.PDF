@@ -1,8 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Text;
-
-namespace DeadDog.PDF
+﻿namespace DeadDog.PDF
 {
     /// <summary>
     /// Defines constants for alignment of text.

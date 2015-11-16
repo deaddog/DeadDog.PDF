@@ -141,8 +141,8 @@ namespace DeadDog.PDF
                 float y = (offset.Y + obj.OffsetY).ToPoints();
 
                 firstpage = false;
-                cb.SetColorStroke(new Color(obj.Color));
-                cb.SetLineWidth(obj.LineWidth);
+                cb.SetColorStroke(new Color(obj.BorderColor));
+                cb.SetLineWidth(obj.BorderWidth);
                 cb.MoveTo(x, writer.PageSize.Height - y);
                 cb.LineTo(x + obj.Width.ToPoints(), writer.PageSize.Height - y - obj.Height.ToPoints());
                 cb.Stroke();
