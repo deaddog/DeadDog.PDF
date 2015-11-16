@@ -50,6 +50,7 @@
     <Compile Include="Objects\Leafs\Box.cs" />
     <Compile Include="Objects\Leafs\Elipse.cs" />
     <Compile Include="Objects\Leafs\EmptyBox.cs" />
+    <Compile Include="Objects\Leafs\FillObject.cs" />
     <Compile Include="Objects\Leafs\ImageObject.cs" />
     <Compile Include="Objects\Leafs\Line.cs" />
     <Compile Include="Objects\Leafs\StrokeObject.cs" />
