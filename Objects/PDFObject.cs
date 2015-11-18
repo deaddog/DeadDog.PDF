@@ -1,7 +1,4 @@
 ﻿using System;
-using System.Collections.Generic;
-using System.Drawing;
-using System.Text;
 
 namespace DeadDog.PDF
 {
@@ -11,49 +8,37 @@ namespace DeadDog.PDF
     public abstract class PDFObject
     {
         private bool canResize;
-        private RectangleF rectangle;
+        private Vector2D offset, size;
 
         /// <summary>
         /// Initializes a new instance of the <see cref="PDFObject" /> class with offset (0,0) and size (0,0).
         /// </summary>
+        /// <param name="canResize">if set to <c>true</c> the <see cref="PDFObject"/> can be resized using its <see cref="PDFObject.Size"/> property.</param>
         public PDFObject(bool canResize)
-            : this(canResize, RectangleF.Empty)
+            : this(canResize, Vector2D.Zero, Vector2D.Zero)
         {
         }
 
         /// <summary>
         /// Initializes a new instance of the <see cref="PDFObject"/> class.
         /// </summary>
-        /// <param name="rectangle">The offset and size of this object.</param>
-        public PDFObject(bool canResize, RectangleF rectangle)
+        /// <param name="canResize">if set to <c>true</c> the <see cref="PDFObject"/> can be resized using its <see cref="PDFObject.Size"/> property.</param>
+        /// <param name="offset">The offset of the <see cref="PDFObject"/>.</param>
+        /// <param name="size">The size of the <see cref="PDFObject"/>.</param>
+        public PDFObject(bool canResize, Vector2D offset, Vector2D size)
         {
             this.canResize = canResize;
-            this.rectangle = rectangle;
+            this.offset = offset;
+            this.size = size;
         }
 
         /// <summary>
         /// Gets or sets the offset for this <see cref="PDFObject"/>.
         /// </summary>
-        public PointF Offset
+        public Vector2D Offset
         {
-            get { return rectangle.Location; }
-            set { rectangle.Location = value; }
-        }
-        /// <summary>
-        /// Gets or sets the x offset for this <see cref="PDFObject"/>.
-        /// </summary>
-        public float OffsetX
-        {
-            get { return rectangle.X; }
-            set { rectangle.X = value; }
-        }
-        /// <summary>
-        /// Gets or sets the y offset for this <see cref="PDFObject"/>.
-        /// </summary>
-        public float OffsetY
-        {
-            get { return rectangle.Y; }
-            set { rectangle.Y = value; }
+            get { return offset; }
+            set { offset = value; }
         }
 
         /// <summary>
@@ -70,43 +55,15 @@ namespace DeadDog.PDF
         /// <summary>
         /// Gets or sets the size of this <see cref="PDFObject"/>.
         /// </summary>
-        public SizeF Size
+        public Vector2D Size
         {
-            get { return canResize ? rectangle.Size : getSize(); }
+            get { return canResize ? size : getSize(); }
             set
             {
                 if (!canResize)
                     throw new InvalidOperationException(typeof(PDFObject).Name + " cannot be resized when CanResize is false.");
                 else
-                    rectangle.Size = value;
-            }
-        }
-        /// <summary>
-        /// Gets or sets the width of this <see cref="PDFObject"/>.
-        /// </summary>
-        public float Width
-        {
-            get { return canResize ? rectangle.Width : getSize().Width; }
-            set
-            {
-                if (!canResize)
-                    throw new InvalidOperationException(typeof(PDFObject).Name + " cannot be resized when CanResize is false.");
-                else
-                    rectangle.Width = value;
-            }
-        }
-        /// <summary>
-        /// Gets or sets the height of this <see cref="PDFObject"/>.
-        /// </summary>
-        public float Height
-        {
-            get { return canResize ? rectangle.Height : getSize().Height; }
-            set
-            {
-                if (!canResize)
-                    throw new InvalidOperationException(typeof(PDFObject).Name + " cannot be resized when CanResize is false.");
-                else
-                    rectangle.Height = value;
+                    size = value;
             }
         }
 
@@ -115,9 +72,9 @@ namespace DeadDog.PDF
         /// This method will only be called when <see cref="CanResize"/> is <c>false</c>.
         /// </summary>
         /// <returns>The size of the <see cref="PDFObject"/>.</returns>
-        protected virtual SizeF getSize()
+        protected virtual Vector2D getSize()
         {
-            return rectangle.Size;
+            return size;
         }
     }
 }
