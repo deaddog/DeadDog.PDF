@@ -1,26 +1,23 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Drawing;
-using System.Text;
+﻿using System.Collections.Generic;
 
 namespace DeadDog.PDF
 {
     public class VerticalGroup<T> : PDFGroup<T> where T : PDFObject
     {
-        private float spacer = 0f;
-        private bool useHeight = true;
+        private Vector1D spacer;
+        private bool useHeight;
         private HorizontalAlignment alignment;
 
         private List<T> objects;
 
         public VerticalGroup()
-            : this(0f)
+            : this(Vector1D.Zero)
         { }
-        public VerticalGroup(float spacer)
+        public VerticalGroup(Vector1D spacer)
             : this(spacer, new T[0])
         {
         }
-        public VerticalGroup(float spacer, params T[] objects)
+        public VerticalGroup(Vector1D spacer, params T[] objects)
             : base(false)
         {
             this.spacer = spacer;
@@ -35,7 +32,7 @@ namespace DeadDog.PDF
             get { return objects; }
         }
 
-        public float Spacer
+        public Vector1D Spacer
         {
             get { return spacer; }
             set { spacer = value; }
@@ -51,19 +48,19 @@ namespace DeadDog.PDF
             set { alignment = value; }
         }
 
-        protected override SizeF getSize()
+        protected override Vector2D getSize()
         {
             if (objects.Count == 0)
-                return SizeF.Empty;
+                return Vector2D.Zero;
 
-            SizeF size = objects[0].Size;
+            Vector2D size = objects[0].Size;
             for (int i = 1; i < objects.Count; i++)
             {
-                if (objects[i].Width > size.Width) size.Width = objects[i].Width;
+                if (objects[i].Size.X > size.X) size.X = objects[i].Size.X;
                 if (useHeight)
-                    size.Height += objects[i].Height + spacer;
+                    size.Y += objects[i].Size.Y + spacer;
                 else
-                    size.Height += spacer;
+                    size.Y += spacer;
             }
 
             return size;
@@ -75,14 +72,15 @@ namespace DeadDog.PDF
                 yield return obj;
         }
 
-        protected internal override PointF GetGroupingOffset(T obj)
+        protected internal override Vector2D GetGroupingOffset(T obj)
         {
             return getLocation(objects.IndexOf(obj));
         }
-        private PointF getLocation(int index)
+        private Vector2D getLocation(int index)
         {
-            float width = this.Width;
-            PointF p = PointF.Empty;
+            var width = this.Size.X;
+
+            Vector2D p = Vector2D.Zero;
 
             switch (alignment)
             {
@@ -90,16 +88,16 @@ namespace DeadDog.PDF
                     //Do nothing because p.X == this.X
                     break;
                 case HorizontalAlignment.Center:
-                    p.X = (width - objects[index].Width) / 2f;
+                    p.X = (width - objects[index].Size.X) / 2;
                     break;
                 case HorizontalAlignment.Right:
-                    p.X = width - objects[index].Width;
+                    p.X = width - objects[index].Size.X;
                     break;
             }
             p.Y = spacer * index;
             if (useHeight)
                 for (int i = 0; i < index; i++)
-                    p.Y += objects[i].Height;
+                    p.Y += objects[i].Size.Y;
             return p;
         }
     }
@@ -109,10 +107,10 @@ namespace DeadDog.PDF
         public VerticalGroup()
             : base()
         { }
-        public VerticalGroup(float spacer, params PDFObject[] objects)
+        public VerticalGroup(Vector1D spacer, params PDFObject[] objects)
             : base(spacer, objects)
         { }
-        public VerticalGroup(float spacer)
+        public VerticalGroup(Vector1D spacer)
             : base(spacer)
         { }
     }

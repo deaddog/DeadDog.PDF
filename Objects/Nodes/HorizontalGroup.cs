@@ -1,26 +1,24 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Drawing;
-using System.Text;
+﻿using System.Collections.Generic;
 
 namespace DeadDog.PDF
 {
     public class HorizontalGroup<T> : PDFGroup<T> where T : PDFObject
     {
-        private float spacer;
+        private Vector1D spacer;
         private bool useWidth;
         private VerticalAlignment alignment;
 
         private List<T> objects;
 
         public HorizontalGroup()
-            : this(0f)
-        { }
-        public HorizontalGroup(float spacer)
+            : this(Vector1D.Zero)
+        {
+        }
+        public HorizontalGroup(Vector1D spacer)
             : this(spacer, new T[0])
         {
         }
-        public HorizontalGroup(float spacer, params T[] objects)
+        public HorizontalGroup(Vector1D spacer, params T[] objects)
             : base(false)
         {
             this.spacer = spacer;
@@ -35,7 +33,7 @@ namespace DeadDog.PDF
             get { return objects; }
         }
 
-        public float Spacer
+        public Vector1D Spacer
         {
             get { return spacer; }
             set { spacer = value; }
@@ -51,38 +49,39 @@ namespace DeadDog.PDF
             set { alignment = value; }
         }
 
-        protected override SizeF getSize()
+        protected sealed override Vector2D getSize()
         {
             if (objects.Count == 0)
-                return SizeF.Empty;
+                return Vector2D.Zero;
 
-            SizeF size = objects[0].Size;
+            Vector2D size = objects[0].Size;
             for (int i = 1; i < objects.Count; i++)
             {
-                if (objects[i].Height > size.Height) size.Height = objects[i].Height;
+                if (objects[i].Size.Y > size.Y) size.Y = objects[i].Size.Y;
                 if (useWidth)
-                    size.Width += objects[i].Width + spacer;
+                    size.X += objects[i].Size.X + spacer;
                 else
-                    size.Width += spacer;
+                    size.X += spacer;
             }
 
             return size;
         }
 
-        protected internal override IEnumerable<T> GetPDFObjects()
+        protected sealed internal override IEnumerable<T> GetPDFObjects()
         {
             foreach (T obj in objects)
                 yield return obj;
         }
 
-        protected internal override PointF GetGroupingOffset(T obj)
+        protected sealed internal override Vector2D GetGroupingOffset(T obj)
         {
             return getLocation(objects.IndexOf(obj));
         }
-        private PointF getLocation(int index)
+        private Vector2D getLocation(int index)
         {
-            float height = this.Height;
-            PointF p = PointF.Empty;
+            var height = this.Size.Y;
+
+            Vector2D p = Vector2D.Zero;
 
             switch (alignment)
             {
@@ -90,16 +89,17 @@ namespace DeadDog.PDF
                     //Do nothing because p.Y == this.Y
                     break;
                 case VerticalAlignment.Middle:
-                    p.Y = (height - objects[index].Height) / 2f;
+                    p.Y = (height - objects[index].Size.Y) / 2;
                     break;
                 case VerticalAlignment.Bottom:
-                    p.Y = height - objects[index].Height;
+                    p.Y = height - objects[index].Size.Y;
                     break;
             }
             p.X = spacer * index;
             if (useWidth)
                 for (int i = 0; i < index; i++)
-                    p.X += objects[i].Width;
+                    p.X += objects[i].Size.X;
+
             return p;
         }
     }
@@ -109,10 +109,10 @@ namespace DeadDog.PDF
         public HorizontalGroup()
             : base()
         { }
-        public HorizontalGroup(float spacer, params PDFObject[] objects)
+        public HorizontalGroup(Vector1D spacer, params PDFObject[] objects)
             : base(spacer, objects)
         { }
-        public HorizontalGroup(float spacer)
+        public HorizontalGroup(Vector1D spacer)
             : base(spacer)
         { }
     }

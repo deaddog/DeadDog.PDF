@@ -1,7 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Drawing;
-using System.Text;
+﻿using System.Collections.Generic;
 
 namespace DeadDog.PDF
 {
@@ -15,18 +12,20 @@ namespace DeadDog.PDF
         /// <summary>
         /// Initializes a new instance of the <see cref="PDFGroup"/> class.
         /// </summary>
-        /// <param name="offsetX">The x offset for this object.</param>
-        /// <param name="offsetY">The y offset for this object.</param>
+        /// <param name="canResize">if set to <c>true</c> the <see cref="PDFGroup"/> can be resized using its <see cref="PDFObject.Size" /> property.</param>
         public PDFGroup(bool canResize)
             : base(canResize)
         {
         }
+
         /// <summary>
         /// Initializes a new instance of the <see cref="PDFGroup"/> class.
         /// </summary>
-        /// <param name="offset">The offset for this object.</param>
-        public PDFGroup(bool canResize, RectangleF rectangle)
-            : base(canResize, rectangle)
+        /// <param name="canResize">if set to <c>true</c> the <see cref="PDFGroup"/> can be resized using its <see cref="PDFObject.Size" /> property.</param>
+        /// <param name="offset"></param>
+        /// <param name="size"></param>
+        public PDFGroup(bool canResize, Vector2D offset, Vector2D size)
+            : base(canResize, offset, size)
         {
         }
     }
@@ -42,25 +41,27 @@ namespace DeadDog.PDF
         /// <summary>
         /// Initializes a new instance of the <see cref="PDFGroup{T}"/> class.
         /// </summary>
-        /// <param name="offsetX">The x offset for this object.</param>
-        /// <param name="offsetY">The y offset for this object.</param>
+        /// <param name="canResize">if set to <c>true</c> the <see cref="PDFGroup{T}"/> can be resized using its <see cref="PDFObject.Size" /> property.</param>
         public PDFGroup(bool canResize)
-            : base(canResize, RectangleF.Empty)
-        {
-        }
-        /// <summary>
-        /// Initializes a new instance of the <see cref="PDFGroup{T}"/> class.
-        /// </summary>
-        /// <param name="offset">The offset for this object.</param>
-        public PDFGroup(bool canResize, RectangleF rectangle)
-            : base(canResize, rectangle)
+            : this(canResize, Vector2D.Zero, Vector2D.Zero)
         {
         }
 
         /// <summary>
-        /// When implemented in a deriving class, non-recursively gets the PDF objects contained by this <see cref="PDFGroup"/>.
+        /// Initializes a new instance of the <see cref="PDFGroup{T}"/> class.
         /// </summary>
-        /// <returns>A collection of the <see cref="PDFObject"/>s contained by this <see cref="PDFGroup."/></returns>
+        /// <param name="canResize">if set to <c>true</c> the <see cref="PDFGroup{T}"/> can be resized using its <see cref="PDFObject.Size" /> property.</param>
+        /// <param name="offset">The offset of the <see cref="PDFGroup{T}"/>.</param>
+        /// <param name="size">The size of the <see cref="PDFGroup{T}"/>.</param>
+        public PDFGroup(bool canResize, Vector2D offset, Vector2D size)
+            : base(canResize, offset, size)
+        {
+        }
+
+        /// <summary>
+        /// When implemented in a deriving class, non-recursively gets the PDF objects contained by this <see cref="PDFGroup{T}"/>.
+        /// </summary>
+        /// <returns>A collection of the <see cref="PDFObject"/>s contained by this <see cref="PDFGroup{T}."/></returns>
         protected internal abstract IEnumerable<T> GetPDFObjects();
 
         /// <summary>
@@ -68,9 +69,9 @@ namespace DeadDog.PDF
         /// </summary>
         /// <param name="obj">The element whichs offset is returned.</param>
         /// <returns>The offset of <paramref name="obj"/>.</returns>
-        protected internal virtual PointF GetGroupingOffset(T obj)
+        protected internal virtual Vector2D GetGroupingOffset(T obj)
         {
-            return PointF.Empty;
+            return Vector2D.Zero;
         }
     }
 }
