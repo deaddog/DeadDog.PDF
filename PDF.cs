@@ -69,7 +69,10 @@ namespace DeadDog.PDF
             if (Pages.Count == 0)
                 throw new Exception("No pages added.");
 
-            Writer w = new Writer(new iTextSharp.text.Document(Pages[0].PageSize.SizePoint), filename, Pages.ToArray());
+            var size = pages[0].PageSize;
+            iTextSharp.text.Rectangle r = new iTextSharp.text.Rectangle((float)size.X.Value(UnitsOfMeasure.Points), (float)size.Y.Value(UnitsOfMeasure.Points));
+
+            Writer w = new Writer(new iTextSharp.text.Document(r), filename, Pages.ToArray());
         }
     }
 }

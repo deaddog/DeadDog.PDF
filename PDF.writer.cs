@@ -17,7 +17,7 @@ namespace DeadDog.PDF
             private PdfWriter writer;
             private PdfContentByte cb;
 
-            private PageSize currentsize = PageSize.A4;
+            private Vector2D currentsize;
             private bool firstpage = true; //Used for determining that the first Page object does not create a blank page.
 
             public Writer(Document document, string filename, Page[] pages)

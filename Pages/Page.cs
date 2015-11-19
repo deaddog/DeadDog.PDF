@@ -1,15 +1,13 @@
-using System;
 using System.Collections.Generic;
-using System.Text;
 
 namespace DeadDog.PDF
 {
     public class Page
     {
-        private PageSize pagesize;
+        private Vector2D pagesize;
         private List<PDFObject> objects;
 
-        public Page(PageSize pagesize)
+        public Page(Vector2D pagesize)
         {
             this.pagesize = pagesize;
             this.objects = new List<PDFObject>();
@@ -20,7 +18,7 @@ namespace DeadDog.PDF
             get { return objects; }
         }
 
-        public PageSize PageSize
+        public Vector2D PageSize
         {
             get { return pagesize; }
         }
