@@ -1,4 +1,6 @@
-﻿namespace DeadDog.PDF
+﻿using iTextSharp.text.pdf;
+
+namespace DeadDog.PDF
 {
     /// <summary>
     /// Holds information required to draw a box in a pdf document.
@@ -12,6 +14,15 @@
         public Box(Vector2D size)
             : base(true, Vector2D.Zero, size)
         {
+        }
+
+        protected internal override void Render(PdfContentByte cb, Vector2D offset)
+        {
+            cb.Rectangle(
+                (float)offset.X.Value(UnitsOfMeasure.Points),
+                (float)offset.Y.Value(UnitsOfMeasure.Points),
+                (float)Size.X.Value(UnitsOfMeasure.Points),
+                (float)Size.Y.Value(UnitsOfMeasure.Points));
         }
     }
 }
