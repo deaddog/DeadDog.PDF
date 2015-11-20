@@ -1,6 +1,4 @@
-﻿using System.Drawing;
-
-namespace DeadDog.PDF
+﻿namespace DeadDog.PDF
 {
     /// <summary>
     /// Holds information required to draw an image in a pdf document.
@@ -8,44 +6,13 @@ namespace DeadDog.PDF
     public class ImageObject : PDFObject
     {
         private string filepath;
-
-        /// <summary>
-        /// Initializes a new instance of the <see cref="ImageObject"/> class.
-        /// </summary>
-        /// <param name="width">The width of the image.</param>
-        /// <param name="height">The height of the image.</param>
-        public ImageObject(string filepath, float width, float height)
-            : this(filepath, 0, 0, width, height)
-        {
-        }
-
+        
         /// <summary>
         /// Initializes a new instance of the <see cref="ImageObject"/> class.
         /// </summary>
         /// <param name="size">The size of the image.</param>
-        public ImageObject(string filepath, SizeF size)
-            : this(filepath, new RectangleF(PointF.Empty, size))
-        {
-        }
-
-        /// <summary>
-        /// Initializes a new instance of the <see cref="ImageObject"/> class.
-        /// </summary>
-        /// <param name="offsetX">The x offset for the image.</param>
-        /// <param name="offsetY">The y offset for the image.</param>
-        /// <param name="width">The width of the image.</param>
-        /// <param name="height">The height of the image.</param>
-        public ImageObject(string filepath, float offsetX, float offsetY, float width, float height)
-            : this(filepath, RectangleF.FromLTRB(offsetX, offsetY, offsetX + width, offsetY + height))
-        {
-        }
-
-        /// <summary>
-        /// Initializes a new instance of the <see cref="ImageObject"/> class.
-        /// </summary>
-        /// <param name="rectangle">A rectangle describing the offset and size of the image.</param>
-        public ImageObject(string filepath, RectangleF rectangle)
-            : base(true, rectangle)
+        public ImageObject(string filepath, Vector2D size)
+            : base(true, Vector2D.Zero, size)
         {
             this.filepath = filepath;
         }
