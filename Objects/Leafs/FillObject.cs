@@ -14,7 +14,7 @@ namespace DeadDog.PDF
         /// Initializes a new instance of the <see cref="FillObject"/> class.
         /// </summary>
         /// <param name="canResize">if set to <c>true</c> the <see cref="FillObject"/> can be resized using its <see cref="PDFObject.Size"/> property.</param>
-        public FillObject(bool canResize) : this(canResize, Vector2D.Zero, Vector2D.Zero)
+        internal FillObject(bool canResize) : this(canResize, Vector2D.Zero, Vector2D.Zero)
         {
         }
         /// <summary>
@@ -23,7 +23,7 @@ namespace DeadDog.PDF
         /// <param name="canResize">if set to <c>true</c> the <see cref="StrokeObject"/> can be resized using its <see cref="PDFObject.Size"/> property.</param>
         /// <param name="offset">The offset of the <see cref="StrokeObject" />.</param>
         /// <param name="size">The size of the <see cref="StrokeObject" />.</param>
-        public FillObject(bool canResize, Vector2D offset, Vector2D size) : base(canResize, offset, size)
+        internal FillObject(bool canResize, Vector2D offset, Vector2D size) : base(canResize, offset, size)
         {
             this.fill = Color.White;
             this.hasFill = true;
