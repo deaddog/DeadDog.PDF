@@ -124,30 +124,6 @@ namespace DeadDog.PDF
                 cb.ShowTextAligned(textAlignment(obj.Alignment), obj.Text, (obj.OffsetX + offset.X).ToPoints(), currentsize.HeightPoint - (obj.Baseline + offset.Y).ToPoints(), 0);
                 cb.EndText();
             }
-            private void draw(PointF offset, DeadDog.PDF.Elipse obj)
-            {
-                if (!obj.HasBorder && !obj.HasFill)
-                    return;
-                float y = currentsize.HeightPoint - obj.Size.Height.ToPoints() - (obj.OffsetY + offset.Y).ToPoints();
-
-                if (obj.HasBorder)
-                {
-                    cb.SetLineWidth(obj.BorderWidth);
-                    cb.SetColorStroke(new Color(obj.BorderColor));
-                }
-                cb.SetColorFill(new Color(obj.FillColor));
-                float x = (obj.OffsetX + offset.X).ToPoints();
-                float x2 = obj.Size.Width.ToPoints() + x;
-                float y2 = obj.Size.Height.ToPoints() + y;
-                cb.Ellipse(x, y, x2, y2);
-
-                if (obj.HasBorder && obj.HasFill)
-                    cb.FillStroke();
-                else if (obj.HasBorder)
-                    cb.Stroke();
-                else if (obj.HasFill)
-                    cb.Fill();
-            }
             private void draw(PointF offset, DeadDog.PDF.Line obj)
             {
                 float x = (offset.X + obj.OffsetX).ToPoints();
