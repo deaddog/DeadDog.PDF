@@ -18,7 +18,6 @@ namespace DeadDog.PDF
             private PdfContentByte cb;
 
             private Vector2D currentsize;
-            private bool firstpage = true; //Used for determining that the first Page object does not create a blank page.
 
             public Writer(Document document, string filename, Page[] pages)
             {
@@ -55,12 +54,20 @@ namespace DeadDog.PDF
 
             private void draw(Page page)
             {
-                currentsize = page.PageSize;
-                if (!firstpage)
-                    document.NewPage();
-                firstpage = false;
+                if (page.PageSize != currentsize)
+                {
+                    currentsize = page.PageSize;
 
-                PointF offset = PointF.Empty;
+                    var rectangle = new iTextSharp.text.Rectangle(
+                        (float)currentsize.X.Value(UnitsOfMeasure.Points),
+                        (float)currentsize.Y.Value(UnitsOfMeasure.Points));
+
+                    document.SetPageSize(rectangle);
+                }
+
+                document.NewPage();
+
+                Vector2D offset = Vector2D.Zero;
                 foreach (var obj in page.Objects)
                     draw(offset, (dynamic)obj);
             }
@@ -111,7 +118,6 @@ namespace DeadDog.PDF
             {
                 if (obj.Text == null || obj.Text.Length == 0)
                     return;
-                firstpage = false;
                 cb.BeginText();
                 cb.SetColorFill(new Color(obj.Color));
                 cb.SetFontAndSize(obj.Font.iTextSharpFont.BaseFont, obj.Font.Size);
@@ -122,7 +128,6 @@ namespace DeadDog.PDF
             {
                 if (!obj.HasBorder && !obj.HasFill)
                     return;
-                firstpage = false;
                 float y = currentsize.HeightPoint - (obj.Size.Height + offset.Y + obj.OffsetY).ToPoints();
 
                 if (obj.HasBorder)
@@ -143,7 +148,6 @@ namespace DeadDog.PDF
             {
                 if (!obj.HasBorder && !obj.HasFill)
                     return;
-                firstpage = false;
                 float y = currentsize.HeightPoint - obj.Size.Height.ToPoints() - (obj.OffsetY + offset.Y).ToPoints();
 
                 if (obj.HasBorder)
@@ -169,7 +173,6 @@ namespace DeadDog.PDF
                 float x = (offset.X + obj.OffsetX).ToPoints();
                 float y = (offset.Y + obj.OffsetY).ToPoints();
 
-                firstpage = false;
                 cb.SetColorStroke(new Color(obj.BorderColor));
                 cb.SetLineWidth(obj.BorderWidth);
                 cb.MoveTo(x, writer.PageSize.Height - y);
@@ -178,7 +181,6 @@ namespace DeadDog.PDF
             }
             private void draw(PointF offset, DeadDog.PDF.ImageObject obj)
             {
-                firstpage = false;
                 iTextSharp.text.Image img;
                 if (imagePaths.Contains(obj.Filepath))
                     img = images[imagePaths.IndexOf(obj.Filepath)];
