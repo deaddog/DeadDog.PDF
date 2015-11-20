@@ -78,6 +78,38 @@ namespace DeadDog.PDF
                 }
             }
 
+            private void draw(Vector2D offset, LeafObject obj)
+            {
+                var stroke = obj as StrokeObject;
+                var fill = obj as FillObject;
+
+                bool hasstroke = stroke?.HasBorder ?? false;
+                bool hasfill = fill?.HasFill ?? false;
+
+                if (!hasstroke && !hasfill)
+                    return;
+
+                if (hasstroke)
+                {
+                    cb.SetLineWidth(stroke.BorderWidth);
+                    cb.SetColorStroke(new Color(stroke.BorderColor));
+                }
+                if (hasfill)
+                    cb.SetColorFill(new Color(fill.FillColor));
+
+                offset += obj.Offset;
+                offset.Y = currentsize.Y - obj.Size.Y - offset.Y;
+
+                obj.Render(cb, offset);
+
+                if (hasstroke && hasfill)
+                    cb.FillStroke();
+                else if (hasstroke)
+                    cb.Stroke();
+                else if (hasfill)
+                    cb.Fill();
+            }
+
             private void draw(PointF offset, DeadDog.PDF.TextLine obj)
             {
                 if (obj.Text == null || obj.Text.Length == 0)
