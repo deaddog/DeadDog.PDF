@@ -65,16 +65,13 @@ namespace DeadDog.PDF
                     draw(offset, (dynamic)obj);
             }
 
-            private void draw<T>(PointF offset, PDFGroup<T> group) where T : PDFObject
+            private void draw<T>(Vector2D offset, PDFGroup<T> group) where T : PDFObject
             {
-                offset = new PointF(offset.X + group.OffsetX, offset.Y + group.OffsetY);
+                offset += group.Offset;
                 foreach (var obj in group.GetPDFObjects())
                 {
                     var gOff = group.GetGroupingOffset(obj);
-                    draw(new PointF(
-                        offset.X + gOff.X,
-                        offset.Y + gOff.Y),
-                        ((dynamic)obj));
+                    draw(offset + gOff, (dynamic)obj);
                 }
             }
 
