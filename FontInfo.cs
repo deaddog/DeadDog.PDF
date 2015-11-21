@@ -233,16 +233,6 @@ namespace DeadDog.PDF
             return new Vector1D(font.BaseFont.GetWidthPoint(value, font.Size), UnitsOfMeasure.Points);
         }
 
-        private static float getP(float cm)
-        {
-            //float a = (cm * 72f) / 2.54f;
-            return (cm * 72f) / 2.54f;
-        }
-        private static float getC(float p)
-        {
-            return (p * 2.54f) / 72f;
-        }
-
         #endregion
 
         /// <summary>
