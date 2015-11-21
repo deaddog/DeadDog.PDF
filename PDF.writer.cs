@@ -90,9 +90,6 @@ namespace DeadDog.PDF
                 bool hasstroke = stroke?.HasBorder ?? false;
                 bool hasfill = fill?.HasFill ?? false;
 
-                if (!hasstroke && !hasfill)
-                    return;
-
                 if (hasstroke)
                 {
                     cb.SetLineWidth(stroke.BorderWidth);
@@ -124,27 +121,6 @@ namespace DeadDog.PDF
                 cb.ShowTextAligned(textAlignment(obj.Alignment), obj.Text, (obj.OffsetX + offset.X).ToPoints(), currentsize.HeightPoint - (obj.Baseline + offset.Y).ToPoints(), 0);
                 cb.EndText();
             }
-            private void draw(PointF offset, DeadDog.PDF.ImageObject obj)
-            {
-                iTextSharp.text.Image img;
-                if (imagePaths.Contains(obj.Filepath))
-                    img = images[imagePaths.IndexOf(obj.Filepath)];
-                else
-                {
-                    img = iTextSharp.text.Image.GetInstance(obj.Filepath);
-                    imagePaths.Add(obj.Filepath);
-                    images.Add(img);
-                }
-                img.ScaleAbsolute(obj.Size.Width.ToPoints(), obj.Size.Height.ToPoints());
-
-                float x = (obj.OffsetX + offset.X).ToPoints();
-                float y = currentsize.HeightPoint - (obj.OffsetY + offset.Y).ToPoints() - img.ScaledHeight;
-                img.SetAbsolutePosition(x, y);
-                cb.AddImage(img);
-            }
-
-            private List<iTextSharp.text.Image> images = new List<iTextSharp.text.Image>();
-            private List<string> imagePaths = new List<string>();
         }
     }
 }
