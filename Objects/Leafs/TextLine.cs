@@ -65,18 +65,18 @@ namespace DeadDog.PDF
         /// <returns>
         /// The size of the <see cref="TextLine" />.
         /// </returns>
-        protected override SizeF getSize()
+        protected override Vector2D getSize()
         {
-            return new SizeF(font.MeasureStringWidth(text), font.Height);
+            return new Vector2D(font.MeasureStringWidth(text), font.Height);
         }
 
         /// <summary>
         /// Gets the distance between the Y property of this <see cref="TextLine"/> and the baseline of the text.
         /// </summary>
-        public float Baseline
+        public Vector1D Baseline
         {
-            get { return this.OffsetY + font.AscenderHeight + font.BaseHeight; }
-            set { this.OffsetY = value - font.AscenderHeight - font.BaseHeight; }
+            get { return this.Offset.Y + font.AscenderHeight + font.BaseHeight; }
+            set { this.Offset = new Vector2D(this.Offset.X, value - font.AscenderHeight - font.BaseHeight); }
         }
     }
 }
