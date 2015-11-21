@@ -18,18 +18,7 @@ namespace DeadDog.PDF
         /// </summary>
         /// <param name="font">The font used to display text in this textline.</param>
         public TextLine(FontInfo font)
-            : this(font, 0, 0)
-        {
-        }
-
-        /// <summary>
-        /// Initializes a new instance of the <see cref="TextLine"/> class.
-        /// </summary>
-        /// <param name="font">The font used to display text in this textline.</param>
-        /// <param name="offsetX">The x offset for the line.</param>
-        /// <param name="offsetY">The y offset for the line.</param>
-        public TextLine(FontInfo font, float offsetX, float offsetY)
-            : base(false, new RectangleF(offsetX, offsetY, 0, 0))
+            : base(false, Vector2D.Zero, Vector2D.Zero)
         {
             this.text = string.Empty;
             this.font = font;
@@ -40,7 +29,7 @@ namespace DeadDog.PDF
         /// <summary>
         /// Gets or sets the text displayed by this <see cref="TextLine"/>. New line characters are not displayed - see <see cref="TextBox"/>.
         /// </summary>
-        public String Text
+        public string Text
         {
             get { return text; }
             set { text = value; }
