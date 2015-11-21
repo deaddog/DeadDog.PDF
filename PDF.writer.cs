@@ -1,11 +1,6 @@
 using System;
-using System.Collections.Generic;
-using System.Text;
-
-using Color = iTextSharp.text.Color;
 using iTextSharp.text;
 using iTextSharp.text.pdf;
-using System.Drawing;
 
 namespace DeadDog.PDF
 {
@@ -40,16 +35,6 @@ namespace DeadDog.PDF
                     Console.Error.WriteLine(ioe.Message);
                 }
                 document.Close();
-            }
-
-            private int textAlignment(TextAlignment ta)
-            {
-                switch (ta)
-                {
-                    case TextAlignment.Left: return 0;
-                    case TextAlignment.Center: return 1;
-                    default: return 2;
-                }
             }
 
             private void draw(Page page)
@@ -109,17 +94,6 @@ namespace DeadDog.PDF
                     cb.Stroke();
                 else if (hasfill)
                     cb.Fill();
-            }
-
-            private void draw(PointF offset, DeadDog.PDF.TextLine obj)
-            {
-                if (obj.Text == null || obj.Text.Length == 0)
-                    return;
-                cb.BeginText();
-                cb.SetColorFill(new Color(obj.Color));
-                cb.SetFontAndSize(obj.Font.iTextSharpFont.BaseFont, obj.Font.Size);
-                cb.ShowTextAligned(textAlignment(obj.Alignment), obj.Text, (obj.OffsetX + offset.X).ToPoints(), currentsize.HeightPoint - (obj.Baseline + offset.Y).ToPoints(), 0);
-                cb.EndText();
             }
         }
     }

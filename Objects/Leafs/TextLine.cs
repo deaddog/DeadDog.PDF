@@ -1,12 +1,12 @@
-﻿using System;
-using System.Drawing;
+﻿using System.Drawing;
+using iTextSharp.text.pdf;
 
 namespace DeadDog.PDF
 {
     /// <summary>
     /// Holds information required to draw a text line in a pdf document.
     /// </summary>
-    public sealed class TextLine : PDFObject
+    public sealed class TextLine : LeafObject
     {
         private string text;
         private Color color;
@@ -77,6 +77,26 @@ namespace DeadDog.PDF
         {
             get { return this.Offset.Y + font.AscenderHeight + font.BaseHeight; }
             set { this.Offset = new Vector2D(this.Offset.X, value - font.AscenderHeight - font.BaseHeight); }
+        }
+
+        protected internal override void Render(PdfContentByte cb, Vector2D offset)
+        {
+            offset.Y += Size.Y + Offset.Y - Baseline;
+
+            cb.BeginText();
+            cb.SetColorFill(new iTextSharp.text.Color(color));
+            cb.SetFontAndSize(font.iTextSharpFont.BaseFont, font.Size);
+            cb.ShowTextAligned(textAlignment(alignment), text, (float)offset.X.Value(UnitsOfMeasure.Points), (float)offset.Y.Value(UnitsOfMeasure.Points), 0);
+            cb.EndText();
+        }
+        private int textAlignment(TextAlignment ta)
+        {
+            switch (ta)
+            {
+                case TextAlignment.Left: return 0;
+                case TextAlignment.Center: return 1;
+                default: return 2;
+            }
         }
     }
 }
