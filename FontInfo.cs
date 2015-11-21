@@ -1,5 +1,4 @@
 ﻿using System;
-using System.Collections.Generic;
 using System.Drawing;
 using System.Runtime.InteropServices;
 using System.Text;
@@ -101,25 +100,16 @@ namespace DeadDog.PDF
         /// </summary>
         /// <param name="font">The System.Drawing.Font object from which to create the new FontInfo.</param>
         public FontInfo(System.Drawing.Font font)
+            : this(font.Name, font.Size, font.Style, FontInfo.getFont(font))
         {
-            this.name = font.Name;
-            this.style = font.Style;
-            this.size = font.Size;
-            this.iFont = FontInfo.getFont(font);
-
-            this.ascenderHeight = GetAscenderHeight(iFont);
-            this.descenderHeight = GetDescenderHeight(iFont);
-            this.baseHeight = GetBaseHeight(iFont);
-            this.height = GetLineHeight(iFont);
         }
-
         /// <summary>
         /// Initializes a new <see cref="FontInfo"/> using a specified size.
         /// </summary>
         /// <param name="familyName">A string representation of the <see cref="System.Drawing.FontFamily"/> for the new <see cref="FontInfo"/></param>
         /// <param name="emSize">The em-size, in points, of the new font.</param>
         public FontInfo(string familyName, float emSize)
-            :this(familyName, emSize, FontStyle.Regular)
+            : this(familyName, emSize, FontStyle.Regular)
         {
         }
         /// <summary>
@@ -129,11 +119,16 @@ namespace DeadDog.PDF
         /// <param name="emSize">The em-size, in points, of the new font.</param>
         /// <param name="style">The System.Drawing.FontStyle of the new font.</param>
         public FontInfo(string familyName, float emSize, FontStyle style)
+            : this(familyName, emSize, style, iTextSharp.text.FontFactory.GetFont(familyName, emSize, getStyle(style)))
         {
-            this.name = familyName;
+        }
+
+        private FontInfo(string name, float size, FontStyle style, iTextSharp.text.Font iFont)
+        {
+            this.name = name;
+            this.size = size;
             this.style = style;
-            this.size = emSize;
-            this.iFont = iTextSharp.text.FontFactory.GetFont(name, size, getStyle(style));
+            this.iFont = iFont;
 
             this.ascenderHeight = GetAscenderHeight(iFont);
             this.descenderHeight = GetDescenderHeight(iFont);
@@ -183,7 +178,8 @@ namespace DeadDog.PDF
         public FontStyle Style
         {
             get { return this.style; }
-            set {
+            set
+            {
                 this.style = value;
                 iFont.SetStyle(FontInfo.getStyle(value));
             }
