@@ -90,10 +90,10 @@ namespace DeadDog.PDF
         // 
         // Actual read values are: ascentHeight, descentHeight, baseHeight
 
-        private float height;
-        private float ascenderHeight;
-        private float baseHeight;
-        private float descenderHeight;
+        private Vector1D height;
+        private Vector1D ascenderHeight;
+        private Vector1D baseHeight;
+        private Vector1D descenderHeight;
 
         /// <summary>
         /// Initializes a new DeadDog.PDF.FontInfo based on a System.Drawing.Font object.
@@ -139,28 +139,28 @@ namespace DeadDog.PDF
         /// <summary>
         /// Gets the full height of this font.
         /// </summary>
-        public float Height
+        public Vector1D Height
         {
             get { return height; }
         }
         /// <summary>
         /// Gets the ascender height of this font.
         /// </summary>
-        public float AscenderHeight
+        public Vector1D AscenderHeight
         {
             get { return ascenderHeight; }
         }
         /// <summary>
         /// Gets the descender height of this font.
         /// </summary>
-        public float DescenderHeight
+        public Vector1D DescenderHeight
         {
             get { return descenderHeight; }
         }
         /// <summary>
         /// Gets the x-height of this font.
         /// </summary>
-        public float BaseHeight
+        public Vector1D BaseHeight
         {
             get { return baseHeight; }
         }
@@ -202,35 +202,35 @@ namespace DeadDog.PDF
         /// </summary>
         /// <param name="value">String to measure.</param>
         /// <returns>The width of the measured string.</returns>
-        public float MeasureStringWidth(string value)
+        public Vector1D MeasureStringWidth(string value)
         {
             return GetStringWidth(value, this.iFont);
         }
 
         #region Various Size Methods
 
-        private static float GetBaseHeight(iTextSharp.text.Font font)
+        private static Vector1D GetBaseHeight(iTextSharp.text.Font font)
         {
-            return getC(font.BaseFont.GetAscentPoint(baseHeightString, font.Size));
+            return new Vector1D(font.BaseFont.GetAscentPoint(baseHeightString, font.Size), UnitsOfMeasure.Points);
         }
-        private static float GetLineHeight(iTextSharp.text.Font font)
+        private static Vector1D GetLineHeight(iTextSharp.text.Font font)
         {
-            return getC(font.BaseFont.GetAscentPoint(fullHeightString, font.Size) - font.BaseFont.GetDescentPoint(fullHeightString, font.Size));
+            return new Vector1D(font.BaseFont.GetAscentPoint(fullHeightString, font.Size) - font.BaseFont.GetDescentPoint(fullHeightString, font.Size), UnitsOfMeasure.Points);
         }
-        private static float GetAscenderHeight(iTextSharp.text.Font font)
+        private static Vector1D GetAscenderHeight(iTextSharp.text.Font font)
         {
             //Might look weird, but is this way due to error in original implementation
-            return getC(font.BaseFont.GetAscentPoint(fullHeightString, font.Size)
-                - font.BaseFont.GetAscentPoint(baseHeightString, font.Size));
+            return new Vector1D(font.BaseFont.GetAscentPoint(fullHeightString, font.Size)
+                - font.BaseFont.GetAscentPoint(baseHeightString, font.Size), UnitsOfMeasure.Points);
         }
-        private static float GetDescenderHeight(iTextSharp.text.Font font)
+        private static Vector1D GetDescenderHeight(iTextSharp.text.Font font)
         {
-            return getC(-font.BaseFont.GetDescentPoint(baseHeightString, font.Size));
+            return new Vector1D(-font.BaseFont.GetDescentPoint(baseHeightString, font.Size), UnitsOfMeasure.Points);
         }
 
-        private static float GetStringWidth(string value, iTextSharp.text.Font font)
+        private static Vector1D GetStringWidth(string value, iTextSharp.text.Font font)
         {
-            return getC(font.BaseFont.GetWidthPoint(value, font.Size));
+            return new Vector1D(font.BaseFont.GetWidthPoint(value, font.Size), UnitsOfMeasure.Points);
         }
 
         private static float getP(float cm)
