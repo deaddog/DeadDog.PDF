@@ -124,17 +124,6 @@ namespace DeadDog.PDF
                 cb.ShowTextAligned(textAlignment(obj.Alignment), obj.Text, (obj.OffsetX + offset.X).ToPoints(), currentsize.HeightPoint - (obj.Baseline + offset.Y).ToPoints(), 0);
                 cb.EndText();
             }
-            private void draw(PointF offset, DeadDog.PDF.Line obj)
-            {
-                float x = (offset.X + obj.OffsetX).ToPoints();
-                float y = (offset.Y + obj.OffsetY).ToPoints();
-
-                cb.SetColorStroke(new Color(obj.BorderColor));
-                cb.SetLineWidth(obj.BorderWidth);
-                cb.MoveTo(x, writer.PageSize.Height - y);
-                cb.LineTo(x + obj.Width.ToPoints(), writer.PageSize.Height - y - obj.Height.ToPoints());
-                cb.Stroke();
-            }
             private void draw(PointF offset, DeadDog.PDF.ImageObject obj)
             {
                 iTextSharp.text.Image img;
