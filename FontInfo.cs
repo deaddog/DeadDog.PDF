@@ -204,7 +204,7 @@ namespace DeadDog.PDF
         /// <returns>The width of the measured string.</returns>
         public Vector1D MeasureStringWidth(string value)
         {
-            return GetStringWidth(value, this.iFont);
+            return new Vector1D(iFont.BaseFont.GetWidthPoint(value, iFont.Size), UnitsOfMeasure.Points);
         }
 
         #region Various Size Methods
@@ -226,11 +226,6 @@ namespace DeadDog.PDF
         private static Vector1D GetDescenderHeight(iTextSharp.text.Font font)
         {
             return new Vector1D(-font.BaseFont.GetDescentPoint(baseHeightString, font.Size), UnitsOfMeasure.Points);
-        }
-
-        private static Vector1D GetStringWidth(string value, iTextSharp.text.Font font)
-        {
-            return new Vector1D(font.BaseFont.GetWidthPoint(value, font.Size), UnitsOfMeasure.Points);
         }
 
         #endregion
