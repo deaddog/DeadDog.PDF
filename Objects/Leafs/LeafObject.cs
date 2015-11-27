@@ -11,14 +11,6 @@ namespace DeadDog.PDF
         /// <summary>
         /// Initializes a new instance of the <see cref="LeafObject"/> class.
         /// </summary>
-        /// <param name="canResize">if set to <c>true</c> the <see cref="LeafObject" /> can be resized using its <see cref="PDFObject.Size" /> property.</param>
-        public LeafObject(bool canResize)
-            : base(canResize)
-        {
-        }
-        /// <summary>
-        /// Initializes a new instance of the <see cref="LeafObject"/> class.
-        /// </summary>
         /// <param name="canResize">if set to <c>true</c> the <see cref="LeafObject"/> can be resized using its <see cref="PDFObject.Size" /> property.</param>
         /// <param name="offset">The offset of the <see cref="LeafObject"/>.</param>
         /// <param name="size">The size of the <see cref="LeafObject"/>.</param>

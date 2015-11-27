@@ -13,15 +13,6 @@ namespace DeadDog.PDF
         /// Initializes a new instance of the <see cref="PDFGroup"/> class.
         /// </summary>
         /// <param name="canResize">if set to <c>true</c> the <see cref="PDFGroup"/> can be resized using its <see cref="PDFObject.Size" /> property.</param>
-        public PDFGroup(bool canResize)
-            : base(canResize)
-        {
-        }
-
-        /// <summary>
-        /// Initializes a new instance of the <see cref="PDFGroup"/> class.
-        /// </summary>
-        /// <param name="canResize">if set to <c>true</c> the <see cref="PDFGroup"/> can be resized using its <see cref="PDFObject.Size" /> property.</param>
         /// <param name="offset"></param>
         /// <param name="size"></param>
         public PDFGroup(bool canResize, Vector2D offset, Vector2D size)
@@ -38,15 +29,6 @@ namespace DeadDog.PDF
     /// <typeparam name="T">The type of elements in the pdf group</typeparam>
     public abstract class PDFGroup<T> : PDFObject where T : PDFObject
     {
-        /// <summary>
-        /// Initializes a new instance of the <see cref="PDFGroup{T}"/> class.
-        /// </summary>
-        /// <param name="canResize">if set to <c>true</c> the <see cref="PDFGroup{T}"/> can be resized using its <see cref="PDFObject.Size" /> property.</param>
-        public PDFGroup(bool canResize)
-            : this(canResize, Vector2D.Zero, Vector2D.Zero)
-        {
-        }
-
         /// <summary>
         /// Initializes a new instance of the <see cref="PDFGroup{T}"/> class.
         /// </summary>

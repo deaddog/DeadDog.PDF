@@ -9,16 +9,7 @@ namespace DeadDog.PDF
     {
         private bool canResize;
         private Vector2D offset, size;
-
-        /// <summary>
-        /// Initializes a new instance of the <see cref="PDFObject" /> class with offset (0,0) and size (0,0).
-        /// </summary>
-        /// <param name="canResize">if set to <c>true</c> the <see cref="PDFObject"/> can be resized using its <see cref="PDFObject.Size"/> property.</param>
-        public PDFObject(bool canResize)
-            : this(canResize, Vector2D.Zero, Vector2D.Zero)
-        {
-        }
-
+        
         /// <summary>
         /// Initializes a new instance of the <see cref="PDFObject"/> class.
         /// </summary>

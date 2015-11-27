@@ -2,6 +2,22 @@
 
 namespace DeadDog.PDF
 {
+    public class VerticalGroup : VerticalGroup<PDFObject>
+    {
+        public VerticalGroup()
+            : base()
+        {
+        }
+        public VerticalGroup(Vector1D spacer, params PDFObject[] objects)
+            : base(spacer, objects)
+        {
+        }
+        public VerticalGroup(Vector1D spacer)
+            : base(spacer)
+        {
+        }
+    }
+
     public class VerticalGroup<T> : PDFGroup<T> where T : PDFObject
     {
         private Vector1D spacer;
@@ -12,13 +28,14 @@ namespace DeadDog.PDF
 
         public VerticalGroup()
             : this(Vector1D.Zero)
-        { }
+        {
+        }
         public VerticalGroup(Vector1D spacer)
             : this(spacer, new T[0])
         {
         }
         public VerticalGroup(Vector1D spacer, params T[] objects)
-            : base(false)
+            : base(false, Vector2D.Zero, Vector2D.Zero)
         {
             this.spacer = spacer;
             useHeight = true;
@@ -100,18 +117,5 @@ namespace DeadDog.PDF
                     p.Y += objects[i].Size.Y;
             return p;
         }
-    }
-
-    public class VerticalGroup : VerticalGroup<PDFObject>
-    {
-        public VerticalGroup()
-            : base()
-        { }
-        public VerticalGroup(Vector1D spacer, params PDFObject[] objects)
-            : base(spacer, objects)
-        { }
-        public VerticalGroup(Vector1D spacer)
-            : base(spacer)
-        { }
     }
 }

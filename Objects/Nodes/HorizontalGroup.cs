@@ -2,6 +2,22 @@
 
 namespace DeadDog.PDF
 {
+    public class HorizontalGroup : HorizontalGroup<PDFObject>
+    {
+        public HorizontalGroup()
+            : base()
+        {
+        }
+        public HorizontalGroup(Vector1D spacer, params PDFObject[] objects)
+            : base(spacer, objects)
+        {
+        }
+        public HorizontalGroup(Vector1D spacer)
+            : base(spacer)
+        {
+        }
+    }
+
     public class HorizontalGroup<T> : PDFGroup<T> where T : PDFObject
     {
         private Vector1D spacer;
@@ -19,7 +35,7 @@ namespace DeadDog.PDF
         {
         }
         public HorizontalGroup(Vector1D spacer, params T[] objects)
-            : base(false)
+            : base(false, Vector2D.Zero, Vector2D.Zero)
         {
             this.spacer = spacer;
             useWidth = true;
@@ -102,18 +118,5 @@ namespace DeadDog.PDF
 
             return p;
         }
-    }
-
-    public class HorizontalGroup : HorizontalGroup<PDFObject>
-    {
-        public HorizontalGroup()
-            : base()
-        { }
-        public HorizontalGroup(Vector1D spacer, params PDFObject[] objects)
-            : base(spacer, objects)
-        { }
-        public HorizontalGroup(Vector1D spacer)
-            : base(spacer)
-        { }
     }
 }
