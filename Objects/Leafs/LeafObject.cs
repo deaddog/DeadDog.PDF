@@ -1,4 +1,5 @@
-﻿using iTextSharp.text.pdf;
+﻿using iTextSharp.text;
+using iTextSharp.text.pdf;
 
 namespace DeadDog.PDF
 {
@@ -36,7 +37,30 @@ namespace DeadDog.PDF
         protected internal virtual void Render(PdfContentByte cb, Vector2D offset)
         {
             using (var writer = new ContentWriter(cb))
+            {
+                var stroke = this as StrokeObject;
+                var fill = this as FillObject;
+
+                bool hasstroke = stroke?.BorderColor.HasValue ?? false;
+                bool hasfill = fill?.FillColor.HasValue ?? false;
+
+                if (hasstroke)
+                {
+                    cb.SetLineWidth((float)stroke.BorderWidth.Value(UnitsOfMeasure.Points));
+                    cb.SetColorStroke(new Color(stroke.BorderColor.Value));
+                }
+                if (hasfill)
+                    cb.SetColorFill(new Color(fill.FillColor.Value));
+
                 Render(writer, offset);
+
+                if (hasstroke && hasfill)
+                    cb.FillStroke();
+                else if (hasstroke)
+                    cb.Stroke();
+                else if (hasfill)
+                    cb.Fill();
+            }
         }
     }
 }

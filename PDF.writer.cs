@@ -69,31 +69,10 @@ namespace DeadDog.PDF
 
             private void draw(Vector2D offset, LeafObject obj)
             {
-                var stroke = obj as StrokeObject;
-                var fill = obj as FillObject;
-
-                bool hasstroke = stroke?.BorderColor.HasValue ?? false;
-                bool hasfill = fill?.FillColor.HasValue ?? false;
-
-                if (hasstroke)
-                {
-                    cb.SetLineWidth((float)stroke.BorderWidth.Value(UnitsOfMeasure.Points));
-                    cb.SetColorStroke(new Color(stroke.BorderColor.Value));
-                }
-                if (hasfill)
-                    cb.SetColorFill(new Color(fill.FillColor.Value));
-
                 offset += obj.Offset;
                 offset.Y = currentsize.Y - obj.Size.Y - offset.Y;
 
                 obj.Render(cb, offset);
-
-                if (hasstroke && hasfill)
-                    cb.FillStroke();
-                else if (hasstroke)
-                    cb.Stroke();
-                else if (hasfill)
-                    cb.Fill();
             }
         }
     }
