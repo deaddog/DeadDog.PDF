@@ -71,6 +71,7 @@
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="UnitsOfMeasure.cs" />
     <Compile Include="Vector1D.cs" />
+    <Compile Include="Vector4D.cs" />
     <Compile Include="Vector2D.cs" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
