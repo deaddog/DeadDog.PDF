@@ -23,6 +23,27 @@ namespace DeadDog.PDF
             set { closeShape = value; }
         }
 
+        public void Arc(Vector2D v1, Vector2D v2, float startAngle, float extentAngle)
+        {
+            Arc(v1.X, v1.Y, v2.X, v2.Y, startAngle, extentAngle);
+        }
+        public void Arc(Vector1D x1, Vector1D y1, Vector1D x2, Vector1D y2, float startAngle, float extentAngle)
+        {
+            cb.Arc(
+                (float)x1.Value(UnitsOfMeasure.Points),
+                (float)y1.Value(UnitsOfMeasure.Points),
+                (float)x2.Value(UnitsOfMeasure.Points),
+                (float)y2.Value(UnitsOfMeasure.Points), startAngle, extentAngle);
+        }
+        public void Arc(double x1, double y1, double x2, double y2, UnitsOfMeasure unit, float startAngle, float extentAngle)
+        {
+            Arc(
+               new Vector1D(x1, unit),
+               new Vector1D(y1, unit),
+               new Vector1D(x2, unit),
+               new Vector1D(y2, unit), startAngle, extentAngle);
+        }
+
         public void CurveFromTo(Vector2D v1, Vector2D v3)
         {
             CurveFromTo(v1.X, v1.Y, v3.X, v3.Y);
@@ -90,6 +111,31 @@ namespace DeadDog.PDF
                new Vector1D(y3, unit));
         }
 
+        public void Ellipse(Vector4D rectangle)
+        {
+            Ellipse(rectangle.Offset, rectangle.Size);
+        }
+        public void Ellipse(Vector2D position, Vector2D size)
+        {
+            Ellipse(position.X, position.Y, size.X, size.Y);
+        }
+        public void Ellipse(Vector1D x, Vector1D y, Vector1D width, Vector1D height)
+        {
+            cb.Ellipse(
+                (float)x.Value(UnitsOfMeasure.Points),
+                (float)y.Value(UnitsOfMeasure.Points),
+                (float)(x + width).Value(UnitsOfMeasure.Points),
+                (float)(y + height).Value(UnitsOfMeasure.Points));
+        }
+        public void Ellipse(double x, double y, double width, double height, UnitsOfMeasure unit)
+        {
+            Ellipse(
+               new Vector1D(x, unit),
+               new Vector1D(y, unit),
+               new Vector1D(width, unit),
+               new Vector1D(height, unit));
+        }
+
         public void LineTo(Vector2D v)
         {
             LineTo(v.X, v.Y);
@@ -122,6 +168,31 @@ namespace DeadDog.PDF
             MoveTo(
                new Vector1D(x, unit),
                new Vector1D(y, unit));
+        }
+
+        public void Rectangle(Vector4D rectangle)
+        {
+            Rectangle(rectangle.Offset, rectangle.Size);
+        }
+        public void Rectangle(Vector2D position, Vector2D size)
+        {
+            Rectangle(position.X, position.Y, size.X, size.Y);
+        }
+        public void Rectangle(Vector1D x, Vector1D y, Vector1D width, Vector1D height)
+        {
+            cb.Rectangle(
+                (float)x.Value(UnitsOfMeasure.Points),
+                (float)y.Value(UnitsOfMeasure.Points),
+                (float)width.Value(UnitsOfMeasure.Points),
+                (float)height.Value(UnitsOfMeasure.Points));
+        }
+        public void Rectangle(double x, double y, double width, double height, UnitsOfMeasure unit)
+        {
+            Rectangle(
+               new Vector1D(x, unit),
+               new Vector1D(y, unit),
+               new Vector1D(width, unit),
+               new Vector1D(height, unit));
         }
 
         public void Mark(Vector2D v)

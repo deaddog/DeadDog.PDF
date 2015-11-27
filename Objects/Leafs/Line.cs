@@ -1,6 +1,4 @@
-﻿using iTextSharp.text.pdf;
-
-namespace DeadDog.PDF
+﻿namespace DeadDog.PDF
 {
     /// <summary>
     /// Holds information required to draw a line in a pdf document.
@@ -16,16 +14,10 @@ namespace DeadDog.PDF
         {
         }
 
-        protected internal override void Render(PdfContentByte cb, Vector2D offset)
+        protected override void Render(ContentWriter cw, Vector2D offset)
         {
-            var p2 = offset + Size;
-
-            cb.MoveTo(
-                (float)offset.X.Value(UnitsOfMeasure.Points),
-                (float)p2.Y.Value(UnitsOfMeasure.Points));
-            cb.LineTo(
-                (float)p2.X.Value(UnitsOfMeasure.Points),
-                (float)offset.Y.Value(UnitsOfMeasure.Points));
+            cw.MoveTo(offset.X, offset.Y + Size.Y);
+            cw.LineTo(offset.X + Size.X, offset.Y);
         }
     }
 }

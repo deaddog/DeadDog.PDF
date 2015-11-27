@@ -1,6 +1,4 @@
-﻿using iTextSharp.text.pdf;
-
-namespace DeadDog.PDF
+﻿namespace DeadDog.PDF
 {
     public class Arc : FillObject
     {
@@ -14,7 +12,7 @@ namespace DeadDog.PDF
             : base(Vector2D.Zero, size)
         {
             this.startangle = 0;
-            this.extent = 45;
+            this.extent = 350;
         }
 
         public float StartAngle
@@ -28,18 +26,9 @@ namespace DeadDog.PDF
             set { extent = value; }
         }
 
-        protected internal override void Render(PdfContentByte cb, Vector2D offset)
+        protected override void Render(ContentWriter cw, Vector2D offset)
         {
-            var p1 = offset;
-            var p2 = offset + Size;
-
-            cb.Arc(
-                (float)p1.X.Value(UnitsOfMeasure.Points),
-                (float)p1.Y.Value(UnitsOfMeasure.Points),
-                (float)p2.X.Value(UnitsOfMeasure.Points),
-                (float)p2.Y.Value(UnitsOfMeasure.Points),
-                startangle,
-                extent);
+            cw.Arc(offset, offset + Size, startangle, extent);
         }
     }
 }
