@@ -124,6 +124,10 @@ namespace DeadDog.PDF
             return this.value.CompareTo(obj.value);
         }
 
+        public static Vector1D operator -(Vector1D v)
+        {
+            return new Vector1D(-v.value, v.unit);
+        }
         public static Vector1D operator +(Vector1D v1, Vector1D v2)
         {
             if (v1.unit == v2.unit)
