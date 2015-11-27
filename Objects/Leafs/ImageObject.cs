@@ -16,7 +16,7 @@ namespace DeadDog.PDF
         /// </summary>
         /// <param name="size">The size of the image.</param>
         public ImageObject(string filepath, Vector2D size)
-            : base(true, Vector2D.Zero, size)
+            : base(Vector2D.Zero, size)
         {
             this.filepath = filepath;
         }

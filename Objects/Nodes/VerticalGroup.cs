@@ -35,7 +35,7 @@ namespace DeadDog.PDF
         {
         }
         public VerticalGroup(Vector1D spacer, params T[] objects)
-            : base(false, Vector2D.Zero, Vector2D.Zero)
+            : base(Vector2D.Zero, Vector2D.Zero)
         {
             this.spacer = spacer;
             useHeight = true;

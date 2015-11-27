@@ -1,5 +1,4 @@
 ﻿using iTextSharp.text.pdf;
-using System;
 
 namespace DeadDog.PDF
 {
@@ -12,7 +11,7 @@ namespace DeadDog.PDF
         {
         }
         public Arc(Vector2D size)
-            : base(true, Vector2D.Zero, size)
+            : base(Vector2D.Zero, size)
         {
             this.startangle = 0;
             this.extent = 45;

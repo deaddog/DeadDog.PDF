@@ -19,7 +19,7 @@ namespace DeadDog.PDF
         /// </summary>
         /// <param name="font">The font used to display text in this textline.</param>
         public TextLine(FontInfo font)
-            : base(false, Vector2D.Zero, Vector2D.Zero)
+            : base(Vector2D.Zero, Vector2D.Zero)
         {
             this.text = string.Empty;
             this.font = font;

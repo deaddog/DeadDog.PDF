@@ -9,14 +9,14 @@ namespace DeadDog.PDF
     {
         private Color? border;
         private Vector1D width;
-        
+
         /// <summary>
         /// Initializes a new instance of the <see cref="StrokeObject"/> class.
         /// </summary>
-        /// <param name="canResize">if set to <c>true</c> the <see cref="StrokeObject"/> can be resized using its <see cref="PDFObject.Size"/> property.</param>
         /// <param name="offset">The offset of the <see cref="StrokeObject" />.</param>
         /// <param name="size">The size of the <see cref="StrokeObject" />.</param>
-        public StrokeObject(bool canResize, Vector2D offset, Vector2D size) : base(canResize, offset, size)
+        public StrokeObject(Vector2D offset, Vector2D size)
+            : base(offset, size)
         {
             this.border = Color.Black;
             this.width = new Vector1D(1, UnitsOfMeasure.Points);

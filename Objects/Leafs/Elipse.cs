@@ -12,7 +12,7 @@ namespace DeadDog.PDF
         /// </summary>
         /// <param name="size">The size of the elipse.</param>
         public Elipse(Vector2D size)
-            : base(true, Vector2D.Zero, size)
+            : base(Vector2D.Zero, size)
         {
         }
 

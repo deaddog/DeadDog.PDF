@@ -12,7 +12,7 @@ namespace DeadDog.PDF
         /// </summary>
         /// <param name="size">The size of the line.</param>
         public Line(Vector2D size)
-            : base(true, Vector2D.Zero, size)
+            : base(Vector2D.Zero, size)
         {
         }
 
