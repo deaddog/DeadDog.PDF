@@ -28,6 +28,22 @@
             get { return offset; }
             set { boundsChange(value.X, value.Y, size.X, size.Y); }
         }
+        /// <summary>
+        /// Gets or sets the x-coordinate for this <see cref="PDFObject"/>s offset.
+        /// </summary>
+        public Vector1D OffsetX
+        {
+            get { return offset.X; }
+            set { Offset = new Vector2D(value, offset.Y); }
+        }
+        /// <summary>
+        /// Gets or sets the y-coordinate for this <see cref="PDFObject"/>s offset.
+        /// </summary>
+        public Vector1D OffsetY
+        {
+            get { return offset.Y; }
+            set { Offset = new Vector2D(offset.X, value); }
+        }
 
         /// <summary>
         /// Gets or sets the size of this <see cref="PDFObject"/>.
@@ -36,6 +52,22 @@
         {
             get { return getSize(); }
             set { boundsChange(offset.X, offset.Y, value.X, value.Y); }
+        }
+        /// <summary>
+        /// Gets or sets the width of this <see cref="PDFObject"/>.
+        /// </summary>
+        public Vector1D Width
+        {
+            get { return size.X; }
+            set { Size = new Vector2D(value, size.Y); }
+        }
+        /// <summary>
+        /// Gets or sets the height of this <see cref="PDFObject"/>.
+        /// </summary>
+        public Vector1D Height
+        {
+            get { return size.Y; }
+            set { Size = new Vector2D(size.X, value); }
         }
 
         /// <summary>
