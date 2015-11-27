@@ -45,6 +45,7 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="ContentWriter.cs" />
     <Compile Include="Conversion.cs" />
     <Compile Include="FontInfo.cs" />
     <Compile Include="Objects\Leafs\Arc.cs" />
