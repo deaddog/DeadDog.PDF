@@ -28,7 +28,7 @@ namespace DeadDog.PDF
         internal StrokeObject(bool canResize, Vector2D offset, Vector2D size) : base(canResize, offset, size)
         {
             this.border = Color.Black;
-            this.width = new Vector1D(0.5, UnitsOfMeasure.Points);
+            this.width = new Vector1D(1, UnitsOfMeasure.Points);
 
             this.hasBorder = true;
         }
