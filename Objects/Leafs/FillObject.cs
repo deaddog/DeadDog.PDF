@@ -7,8 +7,7 @@ namespace DeadDog.PDF
     /// </summary>
     public abstract class FillObject : StrokeObject
     {
-        private Color fill;
-        private bool hasFill;
+        private Color? fill;
 
         /// <summary>
         /// Initializes a new instance of the <see cref="FillObject"/> class.
@@ -26,24 +25,16 @@ namespace DeadDog.PDF
         public FillObject(bool canResize, Vector2D offset, Vector2D size) : base(canResize, offset, size)
         {
             this.fill = Color.White;
-            this.hasFill = true;
         }
 
         /// <summary>
-        /// Gets or sets whether the filling of this object is displayed.
-        /// </summary>
-        public bool HasFill
-        {
-            get { return hasFill; }
-            set { hasFill = value; }
-        }
-        /// <summary>
         /// Gets or sets the color used for filling this object.
+        /// <c>null</c> indicates that no fill should be applied when rendering the object.
         /// </summary>
-        public Color FillColor
+        public Color? FillColor
         {
             get { return fill; }
-            set { fill = value; hasFill = true; }
+            set { fill = value; }
         }
     }
 }

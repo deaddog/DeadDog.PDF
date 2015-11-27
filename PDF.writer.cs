@@ -72,16 +72,16 @@ namespace DeadDog.PDF
                 var stroke = obj as StrokeObject;
                 var fill = obj as FillObject;
 
-                bool hasstroke = stroke?.HasBorder ?? false;
-                bool hasfill = fill?.HasFill ?? false;
+                bool hasstroke = stroke?.BorderColor.HasValue ?? false;
+                bool hasfill = fill?.FillColor.HasValue ?? false;
 
                 if (hasstroke)
                 {
                     cb.SetLineWidth((float)stroke.BorderWidth.Value(UnitsOfMeasure.Points));
-                    cb.SetColorStroke(new Color(stroke.BorderColor));
+                    cb.SetColorStroke(new Color(stroke.BorderColor.Value));
                 }
                 if (hasfill)
-                    cb.SetColorFill(new Color(fill.FillColor));
+                    cb.SetColorFill(new Color(fill.FillColor.Value));
 
                 offset += obj.Offset;
                 offset.Y = currentsize.Y - obj.Size.Y - offset.Y;

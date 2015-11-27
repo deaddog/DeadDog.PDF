@@ -7,10 +7,8 @@ namespace DeadDog.PDF
     /// </summary>
     public abstract class StrokeObject : LeafObject
     {
-        private Color border;
+        private Color? border;
         private Vector1D width;
-
-        private bool hasBorder;
 
         /// <summary>
         /// Initializes a new instance of the <see cref="StrokeObject"/> class.
@@ -29,17 +27,16 @@ namespace DeadDog.PDF
         {
             this.border = Color.Black;
             this.width = new Vector1D(1, UnitsOfMeasure.Points);
-
-            this.hasBorder = true;
         }
 
         /// <summary>
         /// Gets or sets the color used for drawing the border of this object.
+        /// <c>null</c> indicates that no border should be drawn when rendering the object.
         /// </summary>
-        public Color BorderColor
+        public Color? BorderColor
         {
             get { return border; }
-            set { border = value; hasBorder = true; }
+            set { border = value; }
         }
         /// <summary>
         /// Gets or sets the width (thickness) of the border of this object.
@@ -48,15 +45,6 @@ namespace DeadDog.PDF
         {
             get { return width; }
             set { width = value; }
-        }
-
-        /// <summary>
-        /// Gets or sets whether the border of this object is displayed.
-        /// </summary>
-        public bool HasBorder
-        {
-            get { return hasBorder; }
-            set { hasBorder = value; }
         }
     }
 }
