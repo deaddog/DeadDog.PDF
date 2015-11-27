@@ -47,6 +47,7 @@
   <ItemGroup>
     <Compile Include="Conversion.cs" />
     <Compile Include="FontInfo.cs" />
+    <Compile Include="Objects\Leafs\Arc.cs" />
     <Compile Include="Objects\Leafs\Box.cs" />
     <Compile Include="Objects\Leafs\Elipse.cs" />
     <Compile Include="Objects\Leafs\EmptyBox.cs" />
