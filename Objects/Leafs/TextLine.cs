@@ -1,4 +1,5 @@
 ﻿using System.Drawing;
+using System.Linq;
 using iTextSharp.text.pdf;
 
 namespace DeadDog.PDF
@@ -67,7 +68,14 @@ namespace DeadDog.PDF
         /// </returns>
         protected override Vector2D getSize()
         {
-            return new Vector2D(font.MeasureStringWidth(text), font.Height);
+            return CalculateSize(text, font);
+        }
+
+        public static Vector2D CalculateSize(string text, FontInfo font)
+        {
+            var arr = text.Split('\n');
+            Vector1D w = arr.Max(x => font.MeasureStringWidth(x));
+            return new Vector2D(w, font.Height * arr.Length);
         }
 
         /// <summary>
@@ -86,7 +94,11 @@ namespace DeadDog.PDF
             cb.BeginText();
             cb.SetColorFill(new iTextSharp.text.Color(color));
             cb.SetFontAndSize(font.iTextSharpFont.BaseFont, font.Size);
-            cb.ShowTextAligned(textAlignment(alignment), text, (float)offset.X.Value(UnitsOfMeasure.Points), (float)offset.Y.Value(UnitsOfMeasure.Points), 0);
+            foreach (var s in text.Split('\n'))
+            {
+                cb.ShowTextAligned(textAlignment(alignment), s, (float)offset.X.Value(UnitsOfMeasure.Points), (float)offset.Y.Value(UnitsOfMeasure.Points), 0);
+                offset.Y -= font.Height;
+            }
             cb.EndText();
         }
         private int textAlignment(TextAlignment ta)
