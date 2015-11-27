@@ -55,9 +55,19 @@ namespace DeadDog.PDF
                 Render(writer, offset);
 
                 if (hasstroke && hasfill)
-                    cb.FillStroke();
+                {
+                    if (writer.CloseShape)
+                        cb.ClosePathFillStroke();
+                    else
+                        cb.FillStroke();
+                }
                 else if (hasstroke)
-                    cb.Stroke();
+                {
+                    if (writer.CloseShape)
+                        cb.ClosePathStroke();
+                    else
+                        cb.Stroke();
+                }
                 else if (hasfill)
                     cb.Fill();
             }

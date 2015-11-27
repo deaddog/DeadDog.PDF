@@ -7,6 +7,7 @@ namespace DeadDog.PDF
     public class ContentWriter : IDisposable
     {
         private PdfContentByte cb;
+        private bool closeShape = false;
 
         internal ContentWriter(PdfContentByte cb)
         {
@@ -14,6 +15,12 @@ namespace DeadDog.PDF
                 throw new ArgumentNullException(nameof(cb));
 
             this.cb = cb;
+        }
+
+        public bool CloseShape
+        {
+            get { return closeShape; }
+            set { closeShape = value; }
         }
 
         public void CurveFromTo(Vector2D v1, Vector2D v3)
