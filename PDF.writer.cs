@@ -77,7 +77,7 @@ namespace DeadDog.PDF
 
                 if (hasstroke)
                 {
-                    cb.SetLineWidth(stroke.BorderWidth);
+                    cb.SetLineWidth((float)stroke.BorderWidth.Value(UnitsOfMeasure.Points));
                     cb.SetColorStroke(new Color(stroke.BorderColor));
                 }
                 if (hasfill)

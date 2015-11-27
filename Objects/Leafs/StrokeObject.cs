@@ -8,7 +8,7 @@ namespace DeadDog.PDF
     public abstract class StrokeObject : LeafObject
     {
         private Color border;
-        private float width;
+        private Vector1D width;
 
         private bool hasBorder;
 
@@ -28,7 +28,7 @@ namespace DeadDog.PDF
         internal StrokeObject(bool canResize, Vector2D offset, Vector2D size) : base(canResize, offset, size)
         {
             this.border = Color.Black;
-            this.width = 0.5f;
+            this.width = new Vector1D(0.5, UnitsOfMeasure.Points);
 
             this.hasBorder = true;
         }
@@ -44,7 +44,7 @@ namespace DeadDog.PDF
         /// <summary>
         /// Gets or sets the width (thickness) of the border of this object.
         /// </summary>
-        public float BorderWidth
+        public Vector1D BorderWidth
         {
             get { return width; }
             set { width = value; }
