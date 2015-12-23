@@ -130,15 +130,19 @@ namespace DeadDog.PDF
         }
         public static Vector1D operator +(Vector1D v1, Vector1D v2)
         {
-            if (v1.unit == v2.unit)
+            if (v1.unit == v2.unit || v2.value == 0)
                 return new Vector1D(v1.value + v2.value, v1.unit);
+            else if (v1.value == 0)
+                return v2;
             else
                 return v1 + v2.ToUnit(v1.unit);
         }
         public static Vector1D operator -(Vector1D v1, Vector1D v2)
         {
-            if (v1.unit == v2.unit)
+            if (v1.unit == v2.unit || v2.value == 0)
                 return new Vector1D(v1.value - v2.value, v1.unit);
+            else if (v1.value == 0)
+                return -v2;
             else
                 return v1 - v2.ToUnit(v1.unit);
         }
@@ -146,6 +150,8 @@ namespace DeadDog.PDF
         {
             if (v1.unit == v2.unit)
                 return new Vector1D(v1.value * v2.value, v1.unit);
+            else if (v1.value == 0 || v2.value == 0)
+                return Zero;
             else
                 return v1 * v2.ToUnit(v1.unit);
         }
@@ -153,6 +159,10 @@ namespace DeadDog.PDF
         {
             if (v1.unit == v2.unit)
                 return new Vector1D(v1.value / v2.value, v1.unit);
+            else if (v2.value == 0)
+                throw new DivideByZeroException($"Unable to divide by the \"{nameof(Vector1D.Zero)}\" value.");
+            else if (v1.value == 0)
+                return Zero;
             else
                 return v1 / v2.ToUnit(v1.unit);
         }
