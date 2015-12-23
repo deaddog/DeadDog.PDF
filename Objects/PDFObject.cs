@@ -58,16 +58,16 @@
         /// </summary>
         public Vector1D Width
         {
-            get { return size.X; }
-            set { Size = new Vector2D(value, size.Y); }
+            get { return Size.X; }
+            set { Size = new Vector2D(value, Size.Y); }
         }
         /// <summary>
         /// Gets or sets the height of this <see cref="PDFObject"/>.
         /// </summary>
         public Vector1D Height
         {
-            get { return size.Y; }
-            set { Size = new Vector2D(size.X, value); }
+            get { return Size.Y; }
+            set { Size = new Vector2D(Size.X, value); }
         }
 
         /// <summary>
